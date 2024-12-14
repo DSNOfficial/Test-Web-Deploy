@@ -1,0 +1,22 @@
+.image-container {
+    overflow: hidden;
+  }
+  
+  .hover-image {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .hover-image:hover {
+    transform: scale(1.2); /* Scale the image to 120% of its original size */
+  }
+
+  @font-face{
+    font-family: KhmerOSSiemReap;
+    src:url(../../../public/KhmerOSSiemreap.ttf);
+  }
+  .KhmerOSSiemReap{
+    font-family:KhmerOSSiemReap;
+  }
+  

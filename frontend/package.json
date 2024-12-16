@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://194.233.76.73:8080",
+  "homepage": "http://194.233.76.73:8080/",
   "dependencies": {
     "@ant-design/charts": "^2.1.1",
     "@ant-design/compatible": "^5.1.2",

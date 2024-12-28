@@ -61,7 +61,7 @@ const AdministrationPage = () => {
     const onClickBtnDelete = async (item) => {
         Modal.confirm({
             title: "លុប",
-          content: "តើលោកអ្នកចង់លុបមែន ឬទេ?",
+            content: "តើលោកអ្នកចង់លុបមែន ឬទេ?",
             okText: "លុប",
             cancelText: "បដិសេធ",
             okType: "danger",
@@ -111,7 +111,7 @@ const AdministrationPage = () => {
         }
     };
 
-    const onTextSearch = (value) => {};
+    const onTextSearch = (value) => { };
 
     const onChangeSearch = (e) => {
         filterRef.current.txt_search = e.target.value;
@@ -191,6 +191,7 @@ const AdministrationPage = () => {
             <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 10 }}>
                 <Space>
                     <div className="txt_title">រដ្ឋបាល</div>
+                    <Button>docs</Button>
                     <Input.Search allowClear onChange={onChangeSearch} placeholder="ស្វែងរក" onSearch={onTextSearch} />
                 </Space>
 
@@ -233,19 +234,19 @@ const AdministrationPage = () => {
                         title: "ចំណង់ជើង",
                         dataIndex: "title",
                         ellipsis: true,
-                        width:120,
+                        width: 120,
                         display: '-webkit-box',
                         overflow: 'hidden',
                         WebkitBoxOrient: 'vertical',
                         webkitLineClamp: 3,
                     },
-                 
+
                     {
                         key: "description",
                         title: "មាតិកា",
                         dataIndex: "description",
                         ellipsis: true,
-                        width:300,
+                        width: 300,
                         render: (value) => {
                             if (typeof value === 'string') {
                                 return <span dangerouslySetInnerHTML={{ __html: value }} />;
@@ -345,8 +346,8 @@ const AdministrationPage = () => {
                             </Form.Item>
                         </Col>
                     </Row> */}
-                   
-                   <Row gutter={5}>
+
+                    <Row gutter={5}>
                         <Col span={12}>
                             <Form.Item
                                 label="Upload រូបភាព"
@@ -382,7 +383,7 @@ const AdministrationPage = () => {
                             </Form.Item>
                         </Col>
                     </Row>
-                
+
                     <Row gutter={5}>
                         <Col span={24}>
                             <Form.Item
@@ -409,7 +410,7 @@ const AdministrationPage = () => {
                             </Form.Item>
                         </Col>
                     </Row>
-                
+
                     <Form.Item style={{ textAlign: "right" }}>
                         <Space>
                             <Button onClick={onCloseModal}>បដិសេធ</Button>

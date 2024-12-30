@@ -81,7 +81,7 @@ const translations = {
     packageH: "កញ្ចប់សេវាព្យាបាល",
     structure: "រចនាសម្ព័ន្ធ",
     valueH: "គុណតម្លៃ",
-    vision: "ទស្សនាវិស័យ",
+    vision: "ទស្សនៈវិស័យ",
     news: "ព័ត៌មានទូទៅ",
    
   }

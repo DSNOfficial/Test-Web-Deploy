@@ -52,7 +52,7 @@ const MainLayout = () => {
         {
           key: 'vision',
           icon: <FundViewOutlined />,
-          label: lang === 'KH' ? 'ទស្សនាវិស័យ' : 'Vision',
+          label: lang === 'KH' ? 'ទស្សនៈវិស័យ' : 'Vision',
         },
         {
           key: 'value',

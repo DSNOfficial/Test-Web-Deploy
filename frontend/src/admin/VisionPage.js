@@ -266,7 +266,7 @@ const VisionPage = () => {
             )}
             <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 10 }}>
                 <Space>
-                    <div className="txt_title">ទស្សនាវិស័យ</div>
+                    <div className="txt_title">ទស្សនៈវិស័យ</div>
                     <Input.Search allowClear onChange={onChangeSearch} placeholder="ស្វែងរក" />
                 </Space>
                 <Space>

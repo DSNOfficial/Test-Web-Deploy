@@ -35,7 +35,6 @@ const smallImgStyle = {
   marginBottom: '8px',
   fontFamily: 'KhmerOSSiemReap',
   color:"#343293",
-
 };
 
 const paragraphStyle = {
@@ -44,7 +43,6 @@ const paragraphStyle = {
   padding: '8px',
   fontFamily: 'KhmerOSSiemReap',
   color:"#343293",
-  
 };
 
 const smallParagraphStyle = {
@@ -53,27 +51,6 @@ const smallParagraphStyle = {
   color:"#343293",
 };
 
-const smallTextStyle = {
-  fontSize: '16px',
-  fontWeight: 'bold',
-  marginBottom: '5px',
-};
-
-// New post style with blinking effect
-const newPostStyle = {
-  animation: 'blinker 1.5s linear infinite',
-  color: 'white',
-  fontSize: '10px',
-  backgroundColor: 'red',
-  marginLeft: '5px',
-  verticalAlign: 'middle',
-  padding: '2px 6px',
-  borderRadius: '4px',
-  fontWeight: 'bold',
-};
-const KhmerOSSiemReap =  {
-  fontFamily: 'KhmerOSSiemReap',
-};
 const titleStyle = {
   color: "#2566e1",
   fontFamily: 'KhmerOSSiemReap',
@@ -84,33 +61,34 @@ const buttonStyle = {
   marginTop: '10px',
 };
 
-const newsLabelStyle = {
-  color: '#34408c',
-  fontSize: '16px',
-  fontWeight: 'bold',
-  marginBottom: '10px',
-};
+// Read More Toggle Component
+const ReadMoreParagraph = ({ description, isHistory }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
 
-const dateTextStyle = {
-  fontSize: '12px',
+  const handleToggle = () => {
+    setIsExpanded(!isExpanded);
+  };
 
-};
-const fontKhmer={
-  fontFamily: 'KhmerOSSiemReap'
-}
-
-// Function to convert Arabic numerals to Khmer numerals
-const toKhmerNumeral = (num) => {
-  const khmerNumerals = ['០', '១', '២', '៣', '៤', '៥', '៦', '៧', '៨', '៩'];
-  return num.toString().split('').map(digit => khmerNumerals[digit]).join('');
-};
-
-// Function to format date to Khmer format
-const formatKhmerDate = (date) => {
-  const day = toKhmerNumeral(dayjs(date).date());
-  const month = dayjs(date).locale('km').format('MMMM');
-  const year = toKhmerNumeral(dayjs(date).year());
-  return `ថ្ងៃទី${day} ខែ${month} ${year}`;
+  return (
+    <div>
+      <Paragraph
+        style={isHistory ? paragraphStyle : smallParagraphStyle}
+        ellipsis={!isExpanded} // Apply ellipsis when text is truncated
+      >
+        {description}
+      </Paragraph>
+      
+      <div style={{ textAlign: "right", marginTop: 5 }}>
+        <Button
+          onClick={handleToggle}
+          type="link"
+          style={{ padding: 0 }}
+        >
+          {isExpanded ? "បង្ហាញ" : "អានបន្ថែម"}
+        </Button>
+      </div>
+    </div>
+  );
 };
 
 const ImageShowPageView = () => {
@@ -188,17 +166,17 @@ const ImageShowPageView = () => {
               <Title level={isHistory ? 3 : 5} style={titleStyle}>
                 {isHistory ? `“ ${item.title} ”` : item.Name}
               </Title>
-              <Paragraph style={isHistory ? paragraphStyle : smallParagraphStyle}>
-                {isHistory ? item.description : item.Description}
-              </Paragraph>
-          
+              {/* Use the ReadMoreParagraph component here */}
+              <ReadMoreParagraph 
+                description={isHistory ? item.description : item.Description} 
+                isHistory={isHistory}
+              />
             </div>
           </Col>
         </Row>
       </Card>
     );
   };
-  
 
   return (
     <div>
@@ -209,40 +187,10 @@ const ImageShowPageView = () => {
           <Col xs={24} lg={24} style={titleStyle}>
             {historyList.map((item, index) => renderCard(item, index, true))}
           </Col>
-          {/* <Col xs={24} lg={8}>
-            {newsList.length > 0 && (
-              <div style={{ marginTop: '20px', marginBottom: '20px' }}>
-                <div style={newsLabelStyle}>ព័ត៌មានថ្មីៗ</div>
-                <Divider />
-                {newsList.map((item, index) => renderCard(item, index))}
-              </div>
-            )}
-          </Col> */}
         </Row>
       )}
 
-      {selectedItem && (
-      <Modal
-      visible={isModalVisible}
-      title={
-        <span style={{ color: '#343293' }}>
-          {selectedItem.title || selectedItem.Name}
-        </span>
-      }
-      footer={null}
-      onCancel={handleModalClose}
-    >
-      <img
-        alt={selectedItem.title || selectedItem.Name}
-        src={Config.image_path + selectedItem.Image}
-        style={imgStyle}
-      />
-      <Paragraph style={paragraphStyle}>
-        {selectedItem.description || selectedItem.Description}
-      </Paragraph>
-    </Modal>
-    
-      )}
+  
     </div>
   );
 };

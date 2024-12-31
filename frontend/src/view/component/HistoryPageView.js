@@ -106,7 +106,8 @@ const HistoryPageView = () => {
                 </Col>
                 <Col xs={24} md={12}>
                 <Image
-              width={650}
+                 width={570}
+                 height={340}
                    
               src="http://194.233.76.73:9090/image-1735620380718-682834055"
             />

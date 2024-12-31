@@ -136,15 +136,19 @@ const HistoryPageView = () => {
 
           <h2 style={{ color:'#343293'}}>វិឌីអូអំពីមន្ទីរពេទ្យ</h2>
             {/* <br/> */}
-            
+            <div>
             <iframe src="https://www.facebook.com/plugins/video.php?href=https://www.facebook.com/tsnhhospital/videos/2971852606279321&show_text=0&width=560&height=315"   
                 width={"100%"}
                 height={537}
                 maxWidth={1100}
-                scrolling="no" frameborder="0" 
+                scrolling="no" 
+                frameborder="0" 
                 allowfullscreen="true" 
                 allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
               </iframe>
+
+            </div>
+           
 
             </Card>
           

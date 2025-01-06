@@ -113,10 +113,10 @@ const ContactPageView = () => {
                 </Form.Item>
                 <Form.Item
                 style={{color:'#343293'}}  
-                  label={<span style={{ color: '#343293' }}>អ៊ីម៉ែល</span>}
+                  label={<span style={{ color: '#343293' }}>អ៊ីម៉ែល </span>}
                   name="Email"
                   rules={[
-                    { required: true, message: 'សូមបំពេញអ៊ីម៉ែល' },
+                    // { required: true, message: 'សូមបំពេញអ៊ីម៉ែល' },
                     { type: 'email', message: 'សូមត្រួតពិនិត្យឡើយវិញ អ៊ីម៉ែលរបស់លោក!' },
                   ]}
                 >

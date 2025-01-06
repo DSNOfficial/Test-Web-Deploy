@@ -63,7 +63,7 @@ const translations = {
     subOfficeAdmin: "Sub Office Admin",
     subOfficeAccounting: "Sub Office Accounting",
     aboutUs: "អំពីមន្ទីរពេទ្យ",
-    doc: "អនុក្រឹត្យ",
+    doc: "ច្បាប់ និងបទដ្ឋានគតិយុត្ត",
     mission: "បេសកកម្ម",
     moreAboutUs: "More About Us",
     vision: "Vision",

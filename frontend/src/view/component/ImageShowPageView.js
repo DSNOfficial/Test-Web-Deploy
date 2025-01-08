@@ -164,7 +164,7 @@ const ImageShowPageView = () => {
           <Col  xs={24} md={isHistory ? 24 : 16}>
             <div style={isHistory ? { padding: '16px' } : paragraphStyle}>
               <Title level={isHistory ? 3 : 5} style={titleStyle}>
-                {isHistory ? `“ ${item.title} ”` : item.Name}
+                {isHistory ? ` ${item.title} ` : item.Name}
               </Title>
               {/* Use the ReadMoreParagraph component here */}
               <ReadMoreParagraph 

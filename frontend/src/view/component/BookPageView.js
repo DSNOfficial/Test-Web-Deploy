@@ -59,8 +59,9 @@ const BooksPage = () => {
         <div style={{ padding: '20px', margin: '0 auto', maxWidth: '1200px', backgroundColor: 'white' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 10 }}>
                 <Space>
-                    <div className="txt_title" style={{ color: '#343293' }}>អនុក្រឹត្យ និងលិខិតផ្សេងៗ</div>
-                    <Input.Search allowClear onChange={onChangeSearch} placeholder="ស្វែងរក" onSearch={onTextSearch} />
+                <div className="txt_title" style={{ color: '#343293' }}>ច្បាប់ និងបទដ្ឋានគតិយុត្ត</div>
+                    <Input.Search allowClear onChange={onChangeSearch} placeholder="ស្វែងរកច្បាប់ និងបទដ្ឋានគតិយុត្ត
+" onSearch={onTextSearch} />
                 </Space>
             </div>
             <hr />

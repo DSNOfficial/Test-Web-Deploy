@@ -145,7 +145,7 @@ const cardStyle = {
                                     </div>
                                 </Col>
                                 <Col xs={24} md={24}>
-                                <div style{is}>
+                                <div style={is}>
                                             src={Config.image_path + blog.Image}
                                 </div>       
                                 // <div style={imgContainerStyle}>

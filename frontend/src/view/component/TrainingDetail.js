@@ -122,10 +122,10 @@ const cardStyle = {
                               }}>{blog.title}</h4>
                               <Divider></Divider>
 
-                                                        <div 
+                                                        <p 
                           style={{ 
                             marginTop: '-10px', 
-                            textAlign: 'justify', 
+                            // textAlign: 'justify', 
                             textJustify: 'inter-word' ,
                             color:"#343293",
                           }} 

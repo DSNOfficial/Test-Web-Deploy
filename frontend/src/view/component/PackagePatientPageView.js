@@ -49,7 +49,7 @@ const PackagePatientPageView = () => {
     <div style={containerStyle}>
       <br />
       <Spin spinning={loading} tip="ប្រព័ន្ធកំពុងដំណើរការ... សូមរងចាំ">
-      <h2 style={{ color:'#343293'}}>សេវាព្យាបាលសម្រាកពេទ្យ</h2>
+      <h2 style={{ color:'#343293'}}>កញ្ចប់សេវាព្យាបាល</h2>
       <Divider></Divider>
         <Row gutter={[16, 16]}>
           {list.map((item, index) => (

@@ -44,6 +44,15 @@ const BlogDetailView = () => {
     marginBottom: '70px', // Add margin-bottom to the image
     marginTop :'-50px',
   };
+
+   const is  ={
+    textAlign: 'justify',       
+    textJustify: 'inter-word',
+    borderRadius: '8px',
+    padding: '30px',
+    marginTop: '-60px' 
+   
+  };
   
 const cardStyle = {
   width: "100%",
@@ -115,7 +124,7 @@ const cardStyle = {
                                                         <Paragraph>
                                                         <h4 style={{
                               color:"#2c4089",
-                              textAlign: 'justify',       
+                              // textAlign: 'justify',       
                               textJustify: 'inter-word',
                             
                               }}>{blog.Name} / {blog.Description}</h4>
@@ -124,7 +133,7 @@ const cardStyle = {
                                                         <div 
                           style={{ 
                             marginTop: '-10px', 
-                            textAlign: 'justify', 
+                            // textAlign: 'justify', 
                             textJustify: 'inter-word' ,
                             color:"#343293",
                           }} 
@@ -137,11 +146,11 @@ const cardStyle = {
                                     </div>
                                 </Col>
                                 <Col xs={24} md={24}>
-                                <div style={imgContainerStyle}>
+                                <div style={is}>
                                     <img
                                         alt="avatar"
                                         src={Config.image_path + blog.Image}
-                                        style={imgStyle}
+                                        // style={imgStyle}
                                     />
                                     </div>
                                 </Col>

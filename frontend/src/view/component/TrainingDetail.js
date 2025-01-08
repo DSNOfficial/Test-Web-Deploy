@@ -116,7 +116,7 @@ const cardStyle = {
                                                         <Paragraph>
                                                         <h4 style={{
                               color:"#2c4089",
-                              textAlign: 'justify',       
+                              // textAlign: 'justify',       
                               textJustify: 'inter-word',
                             
                               }}>{blog.title}</h4>

@@ -15,7 +15,14 @@ const containerStyle = {
   backgroundColor: 'white',
   marginTop: '-25px',
 };
-
+const is  ={
+  textAlign: 'justify',       
+  textJustify: 'inter-word',
+  borderRadius: '8px',
+  padding: '30px',
+  marginTop: '-60px' 
+ 
+}
 const TrainingDetail = () => {
   const [list, setList] = useState([]);
   const { id } = useParams();
@@ -138,14 +145,16 @@ const cardStyle = {
                                     </div>
                                 </Col>
                                 <Col xs={24} md={24}>
-                                        
-                                <div style={imgContainerStyle}>
-                                    <img
-                                        alt="avatar"
-                                        src={Config.image_path + blog.Image}
-                                        style={imgStyle}
-                                    />
-                                    </div>
+                                <div style{is}>
+                                            src={Config.image_path + blog.Image}
+                                </div>       
+                                // <div style={imgContainerStyle}>
+                                //     <img
+                                //         alt="avatar"
+                                //         src={Config.image_path + blog.Image}
+                                //         style={imgStyle}
+                                //     />
+                                //     </div>
                                 </Col>
                             </Row>
                         </Card>

@@ -138,6 +138,13 @@ const cardStyle = {
                                     </div>
                                 </Col>
                                 <Col xs={24} md={24}>
+                                <div>
+                                    <img
+                                            alt="avatar"
+                                            src={Config.image_path + blog.Image}
+                                            // style={imgStyle}
+                                        />
+                                </div>         
                                 <div style={imgContainerStyle}>
                                     <img
                                         alt="avatar"

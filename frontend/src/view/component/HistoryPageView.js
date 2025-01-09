@@ -88,7 +88,7 @@ const HistoryPageView = () => {
             </p>
              <img
                 className="responsive-image"
-                src="http://194.233.76.73:9090/image-1735550967129-670064111"
+                src="https://files.tsnh-info.site/image-1735550967129-670064111"
                 alt="Hospital Image 1"
               />
             <p style={{ color:'#343293'}}>
@@ -109,7 +109,7 @@ const HistoryPageView = () => {
                  width={570}
                  height={340}
                    
-              src="http://194.233.76.73:9090/image-1735620380718-682834055"
+              src="https://files.tsnh-info.site/image-1735620380718-682834055"
             />
                 </Col>
               </Row>
@@ -119,7 +119,7 @@ const HistoryPageView = () => {
             </p>
             <img
                 className="responsive-image"
-               src="http://194.233.76.73:9090/image-1735550980349-168654340"
+               src="https://files.tsnh-info.site/image-1735550980349-168654340"
                 alt="Hospital Image 2"
               />
             <p style={{ color:'#343293'}}>
@@ -129,7 +129,7 @@ const HistoryPageView = () => {
 
           <img
                 className="responsive-image"
-                 src="http://194.233.76.73:9090/image-1735620368022-377875245"
+                 src="https://files.tsnh-info.site/image-1735620368022-377875245"
                 alt="Hospital Image 3"
               />
 

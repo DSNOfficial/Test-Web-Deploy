@@ -18,6 +18,7 @@ const SocialPageHeaderView = () => (
       textAlign: "right", 
       backgroundColor: "#ffffff", 
       padding: '10px 20px', // Adjust padding as needed
+       marginBottom:-31,
     }} 
     className='container'
   >

@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Config } from "../../config/helper";
 import { request } from "../../config/request";
-import { Card, Typography, Divider, Row, Col, message, Pagination } from 'antd';
+import { Card, Typography, Divider, Row, Col, message, Pagination,Tabs } from 'antd';
+import { RightOutlined } from '@ant-design/icons';
+
 import dayjs from 'dayjs';
 const containerStyle = {
     padding: '20px',
@@ -21,10 +23,12 @@ const AdministrationPageView = () => {
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize] = useState(2); // Display 2 posts per page
+    const [numTabs, setNumTabs] = useState(2); // Initial number of tabs
 
     useEffect(() => {
         getList();
         getOtherNews();
+        setNumTabs(2);
     }, []);
 
     const getList = async () => {
@@ -71,7 +75,32 @@ const AdministrationPageView = () => {
                                 <Col xs={24} sm={24} md={18} lg={16} xl={16}>
                                     {list.map((item, index) => (
                                         <Card key={index} style={{ marginBottom: '16px', padding: '20px' }}>
-                                         <h2 style={{ color: '#343293' }}>ការិយាល័យរដ្ឋបាល និងបុគ្គលិក</h2>    
+                                         
+                                          <Tabs style={{
+                                                                            marginBlock:-18
+                                                                        }}
+                                            defaultActiveKey="1"
+                                            className="custom-tabs"
+                                            items={[
+                                                {
+                                                label: (
+                                                    <p style={{ color: numTabs > 2 ? 'var(--tab-color2)' : 'var(--tab-color1)', 
+                                                        marginInline:'initial',
+                                                        paddingInline:2,
+                                                        fontSize:12,
+                                                        marginBlock:-6
+                                                    }}>
+                                                        
+                                                        ការិយាល័យរដ្ឋបាល និងបុគ្គលិក <RightOutlined />
+                                                    </p>
+                                                ),
+                                                key: '1',
+                                                // dataIndex:item.Description ,
+                                                children: ''
+
+                                                },
+                                            ]}
+                                            />
                                         <p>
                                         <img
                                         alt="avatar"
@@ -97,8 +126,32 @@ const AdministrationPageView = () => {
                                 {/* Sidebar */}
                                 <Col xs={24} sm={24} md={6} lg={8} xl={8}>
                                     <Card style={{ padding: '16px', textAlign: 'left' }}>
-                                        <h2 style={{ color: '#343293' }}>លិខិតផ្សេងៗ</h2>
-                                        <Divider />
+                                                                        <Tabs style={{
+                                                                            marginBlock:-18
+                                                                        }}
+                                            defaultActiveKey="1"
+                                            className="custom-tabs"
+                                            items={[
+                                                {
+                                                label: (
+                                                    <p style={{ color: numTabs > 2 ? 'var(--tab-color2)' : 'var(--tab-color1)', 
+                                                        marginInline:'initial',
+                                                        paddingInline:2,
+                                                        fontSize:12,
+                                                        marginBlock:-6
+                                                    }}>
+                                                        
+                                                    លិខិតផ្សេងៗ <RightOutlined />
+                                                    </p>
+                                                ),
+                                                key: '1',
+                                                // dataIndex:item.Description ,
+                                                children: ''
+
+                                                },
+                                            ]}
+                                            />
+                                    
                                     </Card>
                                 </Col>
                             </Row>

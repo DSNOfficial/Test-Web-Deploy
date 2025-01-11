@@ -87,9 +87,7 @@ const HomePageView = () => {
       <div style={containerStyle}>
         <br />
 
-     {list.map((item, index) => (
-          <h1></h1>
-        ))}
+
 
         <Tabs
           defaultActiveKey="1"
@@ -108,6 +106,7 @@ const HomePageView = () => {
             },
           ]}
         />
+  
         <ImageShowPageView />
         <br />
         <Tabs

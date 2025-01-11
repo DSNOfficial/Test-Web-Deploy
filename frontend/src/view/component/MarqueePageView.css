@@ -13,7 +13,8 @@
     font-size: 12px;
     width: 10;
     color: #1811e2;
-    background-color: #3330
+    background-color: #3330;
+    margin-bottom: inherit;
 }
 
 .marquee-text {

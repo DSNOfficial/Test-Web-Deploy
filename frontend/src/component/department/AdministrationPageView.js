@@ -71,6 +71,7 @@ const AdministrationPageView = () => {
                                 <Col xs={24} sm={24} md={18} lg={16} xl={16}>
                                     {list.map((item, index) => (
                                         <Card key={index} style={{ marginBottom: '16px', padding: '20px' }}>
+                                         <h2 style={{ color: '#343293' }}>ការិយាល័យរដ្ឋបាល និងបុគ្គលិក</h2>    
                                         <p>
                                         <img
                                         alt="avatar"

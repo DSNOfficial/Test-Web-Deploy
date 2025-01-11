@@ -3,14 +3,15 @@ import { Config } from "../../config/helper";
 import { request } from "../../config/request";
 import { Card, Typography, Divider, Row, Col, message, Pagination } from 'antd';
 import dayjs from 'dayjs';
-
 const containerStyle = {
     padding: '20px',
     margin: '0 auto',
     maxWidth: '1200px',
     backgroundColor: 'white',
     marginTop: '-25px',
-    color: '#343293'
+    color: '#343293',
+    backgroundColor: '#f5f5f5',
+    padding: '20px'
 };
 
 const AdministrationPageView = () => {
@@ -20,8 +21,6 @@ const AdministrationPageView = () => {
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize] = useState(2); // Display 2 posts per page
-    const departmentNewsRef = useRef(null);
-    const otherNewsRef = useRef(null);
 
     useEffect(() => {
         getList();
@@ -63,133 +62,50 @@ const AdministrationPageView = () => {
 
     const paginatedDepartmentNews = departmentNews.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
-    const cardStyle = {
-        width: "100%",
-        marginBottom: "20px",
-    };
-
-    const imgStyle = {
-        display: 'block',
-        width: "100%",
-        color:'#343293'
-    };
-
-    const imgInlineStyle = {
-        display: 'block',
-        width: "100px",
-        marginRight: '16px',
-    };
-
-    const textDate = {
-        display: 'block',
-        fontSize: '9.5px', // Change font size here
-    };
-
-    const { Paragraph, Text } = Typography;
-
-    const getMaxHeight = () => {
-        const departmentHeight = departmentNewsRef.current ? departmentNewsRef.current.clientHeight : 0;
-        const otherHeight = otherNewsRef.current ? otherNewsRef.current.clientHeight : 0;
-        return Math.max(departmentHeight, otherHeight);
-    };
-
-    const toKhmerNumeral = (num) => {
-        const khmerNumerals = ['០', '១', '២', '៣', '៤', '៥', '៦', '៧', '៨', '៩'];
-        return num.toString().split('').map(digit => khmerNumerals[digit]).join('');
-    };
-
-    // Function to format date to Khmer format
-    const formatKhmerDate = (date) => {
-        const day = toKhmerNumeral(dayjs(date).date());
-        const month = dayjs(date).locale('km').format('MMMM');
-        const year = toKhmerNumeral(dayjs(date).year());
-        return `ថ្ងៃទី${day} ខែ${month} ${year}`;
-    };
-
-    // Determine if the post is new
-    const isNewPost = (date) => {
-        const now = dayjs();
-        const postDate = dayjs(date);
-        return now.diff(postDate, 'day') <= 7;
-    };
-
-    // Animation effect for "ថ្មីៗ" label
-    const newPostStyle = {
-        animation: 'blinker 1.5s linear infinite',
-        color: 'white',
-        fontSize: '10px',
-        backgroundColor: 'red',
-        marginLeft: '5px',
-        verticalAlign: 'middle',
-        padding: '2px 6px',
-        borderRadius: '4px',
-        fontWeight: 'bold',
-        color: '#343293'
-
-    };
-    // CSS for the blink animation effect
-    const styles = `
-       @keyframes blinker {
-       50% {
-           opacity: 0;
-       }
-       }
-       `;
-    document.head.insertAdjacentHTML('beforeend', `<style>${styles}</style>`);
     return (
         <div style={containerStyle}>
-            <Row gutter={[16, 16]}>
-                <Col xs={24} md={17}>
-                    <h2 style={{ padding: 32, color: '#343293' }}>ការិយាល័យរដ្ឋបាល និងបុគ្គលិក</h2>
-                    <Divider />
-                    {list.map((item, index) => (
-                        <Card
-                            key={index}
-                            hoverable
-                            style={cardStyle}
-                            bodyStyle={{
-                            padding: 0,
-                            overflow: 'hidden',
-                            }}
-                        >
-                            <Row gutter={[16, 16]} align="middle">
-                                <Col xs={24} md={24}>
-                                    <div style={{ padding: 32 }}>
-                                        <Paragraph>
-                                            <div
-                                                style={{
-                                                    marginTop: '20px',
-                                                    textAlign: 'justify',
-                                                    textJustify: 'inter-word',
-                                                     color: '#343293'
-                                                }}
-                                                dangerouslySetInnerHTML={{ __html: item.description }}
-                                            />
-                                            {/* {item.description} */}
-                                        </Paragraph>
-                                        <Text type="secondary" style={textDate}>
-                                            {/* {formatKhmerDate(item.CreateAt)}
-                                            {isNewPost(item.CreateAt) && <span style={newPostStyle}> ថ្មីៗ</span>} */}
-                                        </Text>
-                                    </div>
-                                </Col>
-                                <Col xs={24} md={24}>
-                                    <img
+            <br></br>
+               {/* <div style={{ padding: '20px', backgroundColor: '#f5f5f5' }}> */}
+                            <Row gutter={[16, 16]} justify="center">
+                                {/* Main Content */}
+                                <Col xs={24} sm={24} md={18} lg={16} xl={16}>
+                                    {list.map((item, index) => (
+                                        <Card key={index} style={{ marginBottom: '16px', padding: '20px' }}>
+                                        <p>
+                                        <img
                                         alt="avatar"
                                         src={Config.image_path + item.Image}
-                                        style={imgStyle}
+                                        
                                     />
+                    <p
+                        style={{
+                            marginTop: '20px',
+                            textAlign: 'justify',
+                            textJustify: 'inter-word',
+                            color: '#343293'
+                        }}
+                        dangerouslySetInnerHTML={{ __html: item.description }}
+                    />
+                </p>
+                
+
+                                        </Card>
+                                    ))}
+                                </Col>
+
+                                {/* Sidebar */}
+                                <Col xs={24} sm={24} md={6} lg={8} xl={8}>
+                                    <Card style={{ padding: '16px', textAlign: 'left' }}>
+                                        <h2 style={{ color: '#343293' }}>លិខិតផ្សេងៗ</h2>
+                                        <Divider />
+                                    </Card>
                                 </Col>
                             </Row>
-                        </Card>
-                    ))}
-                </Col>
+                        {/* </div> */}
 
-            </Row>
         </div>
+     
     );
 };
 
 export default AdministrationPageView;
-
-

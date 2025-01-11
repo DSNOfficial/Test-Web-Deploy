@@ -59,7 +59,7 @@ const MarqueePageView = () => {
 
     return (
         <div className="marquee-container">
-                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 5 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 5,margin:-18,marginTop:-10  }}>
 
               
             {list.map((item, index) => (

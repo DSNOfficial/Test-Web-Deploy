@@ -87,8 +87,8 @@ const HomePageView = () => {
       <div style={containerStyle}>
         <br />
 
-        {list.map((item, index) => (
-         
+     {list.map((item, index) => (
+          <h1></h1>
         ))}
 
         <Tabs

@@ -191,7 +191,7 @@ const AdministrationPage = () => {
             <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 10 }}>
                 <Space>
                     <div className="txt_title">រដ្ឋបាល</div>
-                    <Button>docs</Button>
+                   
                     <Input.Search allowClear onChange={onChangeSearch} placeholder="ស្វែងរក" onSearch={onTextSearch} />
                 </Space>
 

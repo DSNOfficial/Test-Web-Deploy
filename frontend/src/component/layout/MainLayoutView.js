@@ -431,7 +431,7 @@ const MainLayoutView = () => {
         </Content>
       </Spin>
 
-      <Footer style={{ flexShrink: 0 }}>
+      <Footer style={{ flexShrink: 0,paddingInline:"revert"}}>
         <FooterPageView />
       </Footer>
 

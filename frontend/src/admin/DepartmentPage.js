@@ -177,9 +177,11 @@ const DepartmentPage = () => {
             </div>
             <Table
                 dataSource={list}
-                pagination={{
-                    pageSize: 5,
-                }}
+                bordered
+         
+                loading={loading}
+                pagination={{ pageSize: 10 }}
+                  
                 columns={[
                     {
                         key: "No",

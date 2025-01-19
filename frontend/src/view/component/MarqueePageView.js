@@ -54,12 +54,19 @@ const MarqueePageView = () => {
     };
     const KhmerOSSiemReap =  {
         fontFamily: 'KhmerOSSiemReap',
-        color:"#343293",
+        // color:"#343293",
       };
 
     return (
         <div className="marquee-container">
-                <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 5,margin:-18,marginTop:-10  }}>
+                <div style={{
+                     display: 'flex',
+                     justifyContent: 'space-between',
+                     paddingBottom: 5,
+                     margin:-18,
+                     marginTop:-10 ,
+                     backgroundColor:"#343293"
+                      }}>
 
               
             {list.map((item, index) => (
@@ -78,7 +85,7 @@ const MarqueePageView = () => {
               )}
                 </Col> */}
                 <Col span={2}>
-                <p style={{color:"#343293"}} className="KhmerOSSiemReap">
+                <p style={{color:"#FFFFFF"}} className="KhmerOSSiemReap">
                 {item.description}
 
                 </p>

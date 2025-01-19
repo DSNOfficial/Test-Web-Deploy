@@ -116,7 +116,7 @@ const DepartmentPage = () => {
             message.success(res.message)
             getList();
             onCloseModal();
-            window.location.reload();  // Refresh the page
+            //window.location.reload();  // Refresh the page
         }
     }
     const onTextSearch = (value) => {

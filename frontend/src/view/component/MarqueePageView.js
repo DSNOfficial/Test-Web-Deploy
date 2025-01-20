@@ -3,6 +3,7 @@ import { Config } from "../../config/helper";
 import { message,Row,Col } from 'antd';
 import { request } from "../../config/request";
 import './MarqueePageView.css';
+import logo1 from "../../component/assets/image/logs.png"
 
 const MarqueePageView = () => {
     const [list, setList] = useState([]);
@@ -85,10 +86,19 @@ const MarqueePageView = () => {
               )}
                 </Col> */}
                 <Col span={2}>
-                <p style={{color:"#FFFFFF"}} className="KhmerOSSiemReap">
-                {item.description}
-
-                </p>
+              <p
+      style={{
+        color: "#FFFFFF",
+        display: "inline-block",
+         padding: "0 2rem",
+        // fontSize: "2rem",
+        background: `url(${logo1}) no-repeat left top 2px`,
+         backgroundSize: "20px",
+      }}
+      className="KhmerOSSiemReap"
+    >
+      {item.description}
+    </p>
                
                 </Col>
             </Row> 

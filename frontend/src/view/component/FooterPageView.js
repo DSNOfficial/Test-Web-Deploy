@@ -114,12 +114,58 @@ const FooterPageView = () => {
           <div style={paragraphStyle}>
             <h3 style={fontColor} >ព័ត៌មានទូទៅ</h3>
             <Divider />
-            <ul style={listStyle}> 
-              <li style={listItemStyle} title="ដៃគូសហការ"><NavLink to="/page/partners" style={listStyle}>ដៃគូសហការ</NavLink></li>
-              <li style={listItemStyle} title="វគ្គបណ្តុះបណ្តាល"><NavLink to="/page/trainers" style={listStyle}>វគ្គបណ្តុះបណ្តាល</NavLink></li>
-              <li style={listItemStyle} title="បេសកកម្ម"><NavLink to="/page/mission" style={listStyle}>បេសកកម្ម</NavLink></li>
-              <li style={listItemStyle} title="អនុក្រឹត្យ"><NavLink to="/page/books"style={listStyle} >ច្បាប់ និងបទដ្ឋានគតិយុត្ត</NavLink></li>
-            </ul>
+                       <ul style={listStyle}>
+  <li
+    style={listItemStyle}
+    title="ដៃគូសហការ"
+    onClick={() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }}
+    onMouseEnter={(e) => (e.currentTarget.style.textDecoration = 'underline')}
+    onMouseLeave={(e) => (e.currentTarget.style.textDecoration = 'none')}
+  >
+    <NavLink to="/page/partners" style={listStyle}>ដៃគូសហការ</NavLink>
+  </li>
+  <li
+    style={listItemStyle}
+    title="វគ្គបណ្តុះបណ្តាល"
+    onClick={() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }}
+    onMouseEnter={(e) => (e.currentTarget.style.textDecoration = 'underline')}
+    onMouseLeave={(e) => (e.currentTarget.style.textDecoration = 'none')}
+  >
+    <NavLink to="/page/trainers" style={listStyle}>វគ្គបណ្តុះបណ្តាល</NavLink>
+  </li>
+  <li
+    style={listItemStyle}
+    title="បេសកកម្ម"
+    onClick={() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }}
+    onMouseEnter={(e) => (e.currentTarget.style.textDecoration = 'underline')}
+    onMouseLeave={(e) => (e.currentTarget.style.textDecoration = 'none')}
+  >
+    <NavLink to="/page/mission" style={listStyle}>បេសកកម្ម</NavLink>
+  </li>
+  <li
+    style={listItemStyle}
+    title="អនុក្រឹត្យ"
+    onClick={() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }}
+    onMouseEnter={(e) => (e.currentTarget.style.textDecoration = 'underline')}
+    onMouseLeave={(e) => (e.currentTarget.style.textDecoration = 'none')}
+  >
+    <NavLink to="/page/books" style={listStyle}>ច្បាប់ និងបទដ្ឋានគតិយុត្ត</NavLink>
+  </li>
+</ul>
+            // <ul style={listStyle}> 
+            //   <li style={listItemStyle} title="ដៃគូសហការ"><NavLink to="/page/partners" style={listStyle}>ដៃគូសហការ</NavLink></li>
+            //   <li style={listItemStyle} title="វគ្គបណ្តុះបណ្តាល"><NavLink to="/page/trainers" style={listStyle}>វគ្គបណ្តុះបណ្តាល</NavLink></li>
+            //   <li style={listItemStyle} title="បេសកកម្ម"><NavLink to="/page/mission" style={listStyle}>បេសកកម្ម</NavLink></li>
+            //   <li style={listItemStyle} title="អនុក្រឹត្យ"><NavLink to="/page/books"style={listStyle} >ច្បាប់ និងបទដ្ឋានគតិយុត្ត</NavLink></li>
+            // </ul>
             <Divider />
             <h3>ទំនាក់ទំនង</h3>
             <p>ទូរស័ព្ទ: (855) 87 781 119</p>

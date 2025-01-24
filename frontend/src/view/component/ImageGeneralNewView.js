@@ -16,7 +16,7 @@ const ImageGeneralNewView = () => {
     try {
       const res = await request("training/getList", "get");
       if (res && res.list) {
-        setList(res.list.slice(0, 3)); // Limit to 3 items
+        setList(res.list.slice(0, 4)); // Limit to 3 items
       }
     } catch (error) {
       message.error("Failed to fetch the list");
@@ -31,7 +31,6 @@ const ImageGeneralNewView = () => {
     return diffInDays >= 0 && diffInDays <= 2;
   };
 
-  // Responsive container styles
   const containerStyle = {
     display: "flex",
     flexDirection: "column",
@@ -67,6 +66,11 @@ const ImageGeneralNewView = () => {
     color: "#333",
     lineHeight: "1.5",
     margin: 0,
+    display: "-webkit-box", // Enable webkit box model
+    WebkitLineClamp: 5, // Limit to 2 lines
+    WebkitBoxOrient: "vertical", // Set the orientation to vertical
+    overflow: "hidden", // Hide overflowing text
+    textOverflow: "ellipsis", // Add ellipsis to truncated text
   };
 
   const newLabelStyle = {
@@ -80,39 +84,24 @@ const ImageGeneralNewView = () => {
     fontWeight: "bold",
   };
 
-  // Media query adjustments for responsiveness
-  const responsiveCardStyle = {
-    ...cardStyle,
-    flexDirection: "row",
-  };
-
-  const responsiveImageStyle = {
-    ...imageStyle,
-    width: "100px",
-    height: "70px",
-  };
-
-  const responsiveTitleStyle = {
-    ...titleStyle,
-    fontSize: "12px",
-  };
-
   return (
     <div style={containerStyle}>
       {list.map((item, index) => (
-        <div key={index} style={responsiveCardStyle}>
+        <div key={index} style={cardStyle}>
           <NavLink to={`/page/trainers/${item.id}`}>
             <img
-              style={responsiveImageStyle}
+              style={imageStyle}
               src={Config.image_path + item.Image}
               alt={item.title || "News"}
             />
           </NavLink>
           <div style={textContainerStyle}>
             <NavLink to={`/page/trainers/${item.id}`}>
-              <p style={responsiveTitleStyle}>
-                {item.title}{" "}
+              <p style={titleStyle}>
+              
                 {isNewPost(item.date) && <span style={newLabelStyle}>ថ្មី</span>}
+                {item.title}{" "}
+               
               </p>
             </NavLink>
           </div>

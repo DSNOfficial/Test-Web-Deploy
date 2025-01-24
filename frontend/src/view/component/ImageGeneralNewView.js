@@ -65,6 +65,7 @@ const ImageGeneralNewView = () => {
       WebkitBoxOrient: "vertical",
       overflow: "hidden",
       textOverflow: "ellipsis",
+      color:"#343293"
     },
     newLabel: {
       display: "inline-block",

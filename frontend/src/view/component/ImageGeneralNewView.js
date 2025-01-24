@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { message } from "antd";
 import { Config } from "../../config/helper";
@@ -24,29 +23,31 @@ const ImageGeneralNewView = () => {
     }
   };
 
-  // Function to check if the post is new (posted within the last week)
+  // Function to check if the post is new (posted within the last 2 days)
   const isNewPost = (postDate) => {
     const today = dayjs();
     const postDateFormatted = dayjs(postDate);
-    const diffInDays = today.diff(postDateFormatted, "day"); // Difference in days
-    return diffInDays >= 0 && diffInDays <= 2; // Check if within the last 7 days
+    const diffInDays = today.diff(postDateFormatted, "day");
+    return diffInDays >= 0 && diffInDays <= 2;
   };
 
+  // Responsive container styles
   const containerStyle = {
     display: "flex",
     flexDirection: "column",
     gap: "20px",
-    padding: "1px",
+    padding: "10px",
   };
 
   const cardStyle = {
-    marginLeft: "-17px",
     display: "flex",
     alignItems: "flex-start",
     gap: "15px",
     borderRadius: "8px",
     padding: "15px",
     backgroundColor: "#fff",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+    flexDirection: "row",
   };
 
   const imageStyle = {
@@ -61,7 +62,7 @@ const ImageGeneralNewView = () => {
   };
 
   const titleStyle = {
-    fontSize: "12px",
+    fontSize: "14px",
     fontWeight: "bold",
     color: "#333",
     lineHeight: "1.5",
@@ -79,18 +80,37 @@ const ImageGeneralNewView = () => {
     fontWeight: "bold",
   };
 
+  // Media query adjustments for responsiveness
+  const responsiveCardStyle = {
+    ...cardStyle,
+    flexDirection: "row",
+  };
+
+  const responsiveImageStyle = {
+    ...imageStyle,
+    width: "100px",
+    height: "70px",
+  };
+
+  const responsiveTitleStyle = {
+    ...titleStyle,
+    fontSize: "12px",
+  };
+
   return (
     <div style={containerStyle}>
       {list.map((item, index) => (
-        <div key={index} style={cardStyle}>
-          <img
-            style={imageStyle}
-            src={Config.image_path + item.Image}
-            alt={item.title || "News"}
-          />
+        <div key={index} style={responsiveCardStyle}>
+          <NavLink to={`/page/trainers/${item.id}`}>
+            <img
+              style={responsiveImageStyle}
+              src={Config.image_path + item.Image}
+              alt={item.title || "News"}
+            />
+          </NavLink>
           <div style={textContainerStyle}>
             <NavLink to={`/page/trainers/${item.id}`}>
-              <p style={titleStyle}>
+              <p style={responsiveTitleStyle}>
                 {item.title}{" "}
                 {isNewPost(item.date) && <span style={newLabelStyle}>ថ្មី</span>}
               </p>

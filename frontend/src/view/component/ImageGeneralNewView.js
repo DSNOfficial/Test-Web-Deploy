@@ -9,21 +9,20 @@ const ImageGeneralNewView = () => {
   const [list, setList] = useState([]);
 
   useEffect(() => {
+    const getList = async () => {
+      try {
+        const res = await request("training/getList", "get");
+        if (res && res.list) {
+          setList(res.list.slice(0, 4)); // Limit to 4 items
+        }
+      } catch (error) {
+        message.error(`Failed to fetch the list: ${error.message}`);
+      }
+    };
+
     getList();
   }, []);
 
-  const getList = async () => {
-    try {
-      const res = await request("training/getList", "get");
-      if (res && res.list) {
-        setList(res.list.slice(0, 4)); // Limit to 3 items
-      }
-    } catch (error) {
-      message.error("Failed to fetch the list");
-    }
-  };
-
-  // Function to check if the post is new (posted within the last 2 days)
   const isNewPost = (postDate) => {
     const today = dayjs();
     const postDateFormatted = dayjs(postDate);
@@ -31,77 +30,70 @@ const ImageGeneralNewView = () => {
     return diffInDays >= 0 && diffInDays <= 2;
   };
 
-  const containerStyle = {
-    display: "flex",
-    flexDirection: "column",
-    gap: "20px",
-    padding: "-20px",
-  };
-
-  const cardStyle = {
-    display: "flex",
-    alignItems: "flex-start",
-    gap: "15px",
-    borderRadius: "8px",
-    padding: "15px",
-    backgroundColor: "#fff",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-    flexDirection: "row",
-  };
-
-  const imageStyle = {
-    width: "121px",
-    height: "85px",
-    objectFit: "cover",
-    borderRadius: "4px",
-  };
-
-  const textContainerStyle = {
-    flex: 1,
-  };
-
-  const titleStyle = {
-    fontSize: "14px",
-    fontWeight: "bold",
-    color: "#333",
-    lineHeight: "1.5",
-    margin: 0,
-    display: "-webkit-box", // Enable webkit box model
-    WebkitLineClamp: 5, // Limit to 2 lines
-    WebkitBoxOrient: "vertical", // Set the orientation to vertical
-    overflow: "hidden", // Hide overflowing text
-    textOverflow: "ellipsis", // Add ellipsis to truncated text
-  };
-
-  const newLabelStyle = {
-    display: "inline-block",
-    backgroundColor: "#ff9800",
-    color: "#fff",
-    padding: "2px 8px",
-    borderRadius: "4px",
-    fontSize: "12px",
-    marginLeft: "10px",
-    fontWeight: "bold",
+  const styles = {
+    container: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "20px",
+    },
+    card: {
+      display: "flex",
+      alignItems: "flex-start",
+      gap: "15px",
+      borderRadius: "8px",
+      padding: "15px",
+      backgroundColor: "#fff",
+      boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+    },
+    image: {
+      width: "121px",
+      height: "85px",
+      objectFit: "cover",
+      borderRadius: "4px",
+    },
+    textContainer: {
+      flex: 1,
+    },
+    title: {
+      fontSize: "14px",
+      fontWeight: "bold",
+      color: "#333",
+      lineHeight: "1.5",
+      margin: 0,
+      display: "-webkit-box",
+      WebkitLineClamp: 4, // Limit to 2 lines
+      WebkitBoxOrient: "vertical",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+    },
+    newLabel: {
+      display: "inline-block",
+      backgroundColor: "#ff9800",
+      color: "#fff",
+      padding: "2px 8px",
+      borderRadius: "4px",
+      fontSize: "12px",
+      marginLeft: "10px",
+      fontWeight: "bold",
+    },
   };
 
   return (
-    <div style={containerStyle}>
+    <div style={styles.container}>
       {list.map((item, index) => (
-        <div key={index} style={cardStyle}>
+        <div key={index} style={styles.card}>
           <NavLink to={`/page/trainers/${item.id}`}>
             <img
-              style={imageStyle}
-              src={Config.image_path + item.Image}
+              style={styles.image}
+              src={item.Image ? `${Config.image_path}${item.Image}` : "/placeholder.png"}
               alt={item.title || "News"}
             />
           </NavLink>
-          <div style={textContainerStyle}>
+          <div style={styles.textContainer}>
             <NavLink to={`/page/trainers/${item.id}`}>
-              <p style={titleStyle}>
-              
-                {isNewPost(item.date) && <span style={newLabelStyle}>ថ្មី</span>}
-                {item.title}{" "}
-               
+              <p style={styles.title}>
+                {isNewPost(item.createdAt) && <span style={styles.newLabel}>ថ្មី</span>}
+                {item.title || "Untitled"}
               </p>
             </NavLink>
           </div>

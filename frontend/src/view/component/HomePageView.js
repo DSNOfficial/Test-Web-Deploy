@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './ContentPageView.css';
 import { Divider, Layout, Tabs,Spin } from 'antd';
 import Modal from 'react-modal';
-import ImageShowPageView from './ImageShowPageView';
+// import ImageShowPageView from './ImageShowPageView';
 import { RightOutlined } from '@ant-design/icons';
 import './CustomTabs.css';
 import TourDates from './TourDates';
@@ -13,15 +13,20 @@ import BlogPageView from './BlogPageView';
 import ErrorPageView from './ErrorPageView';
 import InstructurePageView from './InstructurePageView';
 import GoogleTranslatePage from './GoogleTranslatePage';
+import ImageShowTestViewPage from './ImageShowTestViewPage';
+import ImageShowPageView from './ImageShowPageView';
+import ImageShowWithNewsView from './ImageShowWithNewsView';
 
 const { Content } = Layout;
 
 const containerStyle = {
   padding: '20px',
+  paddingBottom:'25px',
   margin: '0 auto',
   maxWidth: '1200px',
+ // maxWidth:'100%',
   backgroundColor: 'white',
-  marginTop: '-25px',
+  marginTop: '-65px',
 };
 
 const HomePageView = () => {
@@ -89,7 +94,7 @@ const HomePageView = () => {
 
 
 
-        <Tabs
+        {/* <Tabs
           defaultActiveKey="1"
           className="custom-tabs"
           items={[
@@ -105,10 +110,12 @@ const HomePageView = () => {
 
             },
           ]}
-        />
+        /> */}
   
-        <ImageShowPageView />
-        <br />
+        {/* <ImageShowPageView/> */}
+       {/* <ImageShowTestViewPage/> */}
+       <ImageShowWithNewsView/>
+        <br/>
         <Tabs
           defaultActiveKey="1"
           className="custom-tabs"
@@ -148,7 +155,14 @@ const HomePageView = () => {
         <div style={containerStyle}>
         <InstructurePageView/>
         </div>
-        <hr />
+        <br/>
+        <div style={{
+          backgroundColor:"#343293",
+          paddingBottom:8 ,
+          margin:-20         
+          }}>
+        </div>
+    
 
       </div>
       {/* <Modal

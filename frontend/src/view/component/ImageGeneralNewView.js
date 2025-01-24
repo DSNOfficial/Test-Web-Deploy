@@ -35,7 +35,7 @@ const ImageGeneralNewView = () => {
     display: "flex",
     flexDirection: "column",
     gap: "20px",
-    padding: "10px",
+    padding: "-20px",
   };
 
   const cardStyle = {

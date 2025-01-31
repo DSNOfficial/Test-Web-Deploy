@@ -70,7 +70,10 @@ const PackagePatientPageView = () => {
                 <Meta 
                   description={
                     <Paragraph ellipsis={{ rows: 2, expandable: false }} style={KhmerOSSiemReap}>
-                      {item.Description || "No Description"}
+                     <p
+                      dangerouslySetInnerHTML={{ __html: item.Description }} 
+                      
+                      />
                     </Paragraph>
                   }
                 />

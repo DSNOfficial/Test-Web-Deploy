@@ -5,9 +5,10 @@ import { UploadOutlined, CloseOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import 'dayjs/locale/km'; // Ensure the custom locale is imported
 import MainPage from "../component/page/MainPage";
-import 'react-quill/dist/quill.snow.css'; // Import Quill styles
 import "../component/assets/css/TextEditor.css";
 import { Config, isEmptyOrNull, formatDateClient } from "../config/helper";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const { TextArea } = Input;
 
@@ -24,6 +25,7 @@ const LeaderPage = () => {
     const [fileSelected, setFileSelected] = useState(null);
     const [filePreview, setFilePreview] = useState(null);
     const [isEditMode, setIsEditMode] = useState(false);
+    const [content, setContent] = useState('');
 
     useEffect(() => {
         getList();
@@ -37,6 +39,8 @@ const LeaderPage = () => {
         textJustify: "inter-word",
         padding: '8px',
       };
+
+    const handleContentChange = (value) => setContent(value);
       
     const getList = async () => {
         setLoading(true);
@@ -220,6 +224,11 @@ const LeaderPage = () => {
             key: "description",
             title: "មាតិកា",
             dataIndex: "Description",
+            render: (value) => {
+                if (typeof value === 'string') {
+                    return <span dangerouslySetInnerHTML={{ __html: value }} />;
+                }
+            }
         },
    
         {
@@ -292,8 +301,8 @@ const LeaderPage = () => {
                 onCancel={onCloseModule}
                 okText="Save"
                 footer={null}
-                width="50%"
-                height="50%"
+                width="100%"
+                height="100%"
             >
                 <Spin spinning={modalLoading}>
                     <Form
@@ -319,7 +328,30 @@ const LeaderPage = () => {
                         </Row>
                         <Row>
                             <Col span={24}>
-                                <Form.Item
+
+                            <Form.Item
+                                label="មាតិកា"
+                                name="Description"
+                                rules={[{ required: true, message: "Please input Content!" }]}
+                            >
+                                <ReactQuill
+                                    theme="snow"
+                                    placeholder="មាតិកា"
+                                    value={content}
+                                    onChange={handleContentChange}
+                                    modules={{
+                                        toolbar: [
+                                            [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+                                            [{ size: [] }],
+                                            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                                            [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+                                            ['link'],
+                                            ['clean']
+                                        ]
+                                    }}
+                                />
+                            </Form.Item>
+                                {/* <Form.Item
                                     label="មាតិកា"
                                     name={"Description"}
                                     rules={[
@@ -330,7 +362,7 @@ const LeaderPage = () => {
                                     ]}
                                 >
                                     <TextArea style={{ width: "100%" }} placeholder="មាតិកា" rows={4} />
-                                </Form.Item>
+                                </Form.Item> */}
                             </Col>
                         </Row>
                         <Form.Item
@@ -388,7 +420,8 @@ const LeaderPage = () => {
                 {viewItem && (
                     <div style={paragraphStyle}>
                         <p><strong>ចំណង់ជើង:</strong> {viewItem.Title}</p>
-                        <p><strong>មាតិកា:</strong> {viewItem.Description}</p>
+                        <p><strong>មាតិកា:</strong></p>
+                        <div dangerouslySetInnerHTML={{ __html: viewItem.Description }} />
                         {viewItem.Image && (
                             <Image src={Config.image_path + viewItem.Image} alt="" width={200} />
                         )}

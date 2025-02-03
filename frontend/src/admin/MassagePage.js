@@ -43,7 +43,7 @@ const MassagePage = () => {
     const onClickBtnEdit = async (item) => {
         formCat.setFieldsValue({
             id: item.id,
-            title: item.title,
+            Title: item.Title,
             Email: item.Email,
             Phone: item.Phone,
             Massage: item.Massage,
@@ -81,7 +81,7 @@ const MassagePage = () => {
         var id = formCat.getFieldValue("id");
         var data = {
             id: id,
-            title: item.title,
+            Title: item.Title,
             Email: item.Email,
             Phone: item.Phone,
             Massage: item.Massage,
@@ -154,9 +154,9 @@ const MassagePage = () => {
                         render: (value, item, index) => (index + 1)
                     },
                     {
-                        key: "title",
+                        key: "Title",
                         title: "ឈ្មោះ",
-                        dataIndex: "title",
+                        dataIndex: "Title",
                     },
                     // {
                     //     key: "Massage",
@@ -210,7 +210,7 @@ const MassagePage = () => {
                         <Col span={24}>
                             <Form.Item
                                 label="ឈ្មោះ"
-                                name={"title"}
+                                name={"Title"}
                                 rules={[
                                     {
                                         required: true,
@@ -270,7 +270,7 @@ const MassagePage = () => {
             >
                 {viewItem && (
                     <div>
-                        <p><strong>ឈ្មោះ:</strong> {viewItem.title}</p>
+                        <p><strong>ឈ្មោះ:</strong> {viewItem.Title}</p>
                         <p><strong>អ៊ីម៉ែល:</strong> {viewItem.Email}</p>
                         <p><strong>ទូរស័ព្ទ:</strong> {viewItem.Phone}</p>
                         <p><strong>សំបុត្រ:</strong> {viewItem.Massage}</p>

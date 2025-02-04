@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Config } from "../../config/helper";
 import { request } from "../../config/request";
-import { Card, message, Row, Col, Spin, Typography } from 'antd';
+import { Card, message, Row, Col, Spin, Typography, Pagination } from 'antd';
 import { NavLink } from "react-router-dom";
 import './BlogPageView.css'; // Import the CSS file
 
@@ -15,17 +15,18 @@ const containerStyle = {
   backgroundColor: 'white',
   marginTop: '-25px',
   fontFamily: 'KhmerOSSiemReap',
-
 };
-const fontKhmer ={
-  fontFamily: 'KhmerOSSiemReap',
-  color:"#343293"
 
+const fontKhmer = {
+  fontFamily: 'KhmerOSSiemReap',
+  color: "#343293"
 };
 
 const TrainingPageView = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 8; // Number of items per page
 
   useEffect(() => {
     getList();
@@ -33,7 +34,6 @@ const TrainingPageView = () => {
 
   const getList = async () => {
     setLoading(true);
-
     try {
       const res = await request("training/getList", "get");
       if (res && res.list && res.list.length > 0) {
@@ -46,12 +46,20 @@ const TrainingPageView = () => {
     }
   };
 
+  // Handle page change
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  // Paginate the list
+  const paginatedList = list.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
   return (
     <div style={containerStyle}>
       <br />
       <Spin spinning={loading} tip="ប្រព័ន្ធកំពុងដំណើរការ... សូមរងចាំ">
         <Row gutter={[16, 16]}>
-          {list.map((item, index) => (
+          {paginatedList.map((item, index) => (
             <Col key={index} xs={24} sm={12} md={12} lg={6}>
               <Card
                 hoverable
@@ -77,6 +85,17 @@ const TrainingPageView = () => {
             </Col>
           ))}
         </Row>
+
+        {/* Pagination */}
+        <div style={{ textAlign: "center", marginTop: "20px" }}>
+          <Pagination 
+            current={currentPage} 
+            total={list.length} 
+            pageSize={pageSize} 
+            onChange={handlePageChange} 
+            showSizeChanger={false} 
+          />
+        </div>
         
       </Spin>
     </div>

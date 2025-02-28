@@ -46,7 +46,14 @@ const PackagePatientPageDetailView = () => {
     height: "auto",   // Maintain aspect ratio
     marginBottom: '20px', // Add margin-bottom to the image
   };
-  
+  const is  ={
+    textAlign: 'justify',       
+    textJustify: 'inter-word',
+    borderRadius: '8px',
+    padding: '30px',
+    marginTop: '-60px' 
+   
+  }
   
 
 const cardStyle = {
@@ -112,39 +119,51 @@ const cardStyle = {
                                 overflow: 'hidden',
                             }}
                         >
-                            <Row gutter={[5, 5]} align="middle">
+                           
+                              <Row gutter={[5, 5]} align="middle">
+                                                            <Col xs={24} md={24}>
+                                                                <div style={{ padding: 32 }}>
+                                                                                    <Paragraph>
+                                                                                    {/* <h4 style={{
+                                                          color:"#2c4089",
+                                                          // textAlign: 'justify',       
+                                                          textJustify: 'inter-word',
+                                                        
+                                                          }}>{blog.title}</h4> */}
+                                                          {/* <Divider></Divider> */}
+                                                          <h4 style={{
+                                                          color:"#2c4089",
+                                                          // textAlign: 'justify',       
+                                                          textJustify: 'inter-word',
+                                                        
+                                                          }}>{blog.title}</h4>
                             
-                                <Col xs={24} md={24}>
-                                    <div style={{ padding: 32 }}>
-                                                        <Paragraph>
-                                                        {/* <Meta title={blog.Name} description={blog.Description} /> */}
-
-                                                        <div 
-            style={{ 
-              marginTop: '20px', 
-              textAlign: 'justify', 
-              textJustify: 'inter-word' ,
-              color:'#343293'
-            }} 
-            dangerouslySetInnerHTML={{ __html: blog.Description }} 
-          />
-                 
-                                            {/* {item.description} */}
-                                        </Paragraph>
-                                      
-                                    </div>
-                                </Col>
-                                <Col xs={24} md={24}>
-  <div style={imgContainerStyle}>
-    <img 
-      alt="avatar"
-      src={Config.image_path + blog.Image}
-      style={imgStyle}
-    />
-  </div>
-</Col>
-<br></br>
-                            </Row>
+                                                                                    <p 
+                                                      style={{ 
+                                                        marginTop: '-10px', 
+                                                        // textAlign: 'justify', 
+                                                        textJustify: 'inter-word' ,
+                                                        color:"#343293",
+                                                      }} 
+                                                      dangerouslySetInnerHTML={{ __html: blog.Description }} 
+                                      />
+                                             
+                                                                        {/* {item.description} */}
+                                                                    </Paragraph>
+                                                                  
+                                                                </div>
+                                                            </Col>
+                                                            <Col xs={24} md={24}>
+                                                             
+                                                            <div style={is}>
+                                                                <img
+                                                                    alt="avatar"
+                                                                    src={Config.image_path + blog.Image}
+                                                                   
+                                                                />
+                                                                </div>
+                                                            </Col>
+                              </Row>
                         </Card>
                  
                 </Col>

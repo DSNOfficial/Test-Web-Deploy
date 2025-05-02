@@ -274,7 +274,7 @@ const MassagePage = () => {
                         <p><strong>អ៊ីម៉ែល:</strong> {viewItem.Email}</p>
                         <p><strong>ទូរស័ព្ទ:</strong> {viewItem.Phone}</p>
                         <p><strong>សំបុត្រ:</strong> {viewItem.Massage}</p>
-                        <p><strong>ថ្ងៃបង្កើត:</strong> {formatKhmerDate(viewItem.createdAt)}</p>
+                        <p><strong>ថ្ងៃបង្កើត:</strong> {formatKhmerDate(viewItem.CreatedAt)}</p>
                     </div>
                 )}
             </Modal>

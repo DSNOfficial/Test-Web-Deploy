@@ -51,6 +51,12 @@ const TrainingPageView = () => {
     setCurrentPage(page);
   };
 
+  const stripHtml = (html) => {
+    const tmp = document.createElement("DIV");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
+  };
+
   // Paginate the list
   const paginatedList = list.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
@@ -66,7 +72,7 @@ const TrainingPageView = () => {
                 style={{ width: '100%' }}
                 cover={
                   <NavLink to={`/page/trainers/${item.id}`}>
-                    <img alt="រូបភាព" src={Config.image_path + item.Image} className="card-image" />
+                    <img alt="រូបភាព" src={Config.image_path + item.image} className="card-image" />
                   </NavLink>
                 }
               >
@@ -75,12 +81,12 @@ const TrainingPageView = () => {
                 </NavLink>
                 <br />
                 <Meta 
-                  description={
-                    <Paragraph style={fontKhmer} ellipsis={{ rows: 2, expandable: false }}>
-                      {item.description || "No Description"}
-                    </Paragraph>
-                  }
-                />
+                    description={
+                      <Paragraph style={fontKhmer} ellipsis={{ rows: 2, expandable: false }}>
+                        {stripHtml(item.description) || "No Description"}
+                      </Paragraph>
+                    }
+                  />
               </Card>
             </Col>
           ))}

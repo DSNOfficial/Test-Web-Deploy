@@ -1,10 +1,54 @@
+
+
 import { useEffect, useState, useRef } from "react";
 import { request } from "../config/request";
-import { Table, Button, Space, Modal, Input, Form, Image, message,Row,Col } from "antd";
+import { Table, Button, Space, Modal, Input, Form, Image, message, Row, Upload, Col, Divider } from "antd";
 import { Config, isEmptyOrNull } from "../config/helper";
 import MainPage from "../component/page/MainPage";
 import dayjs from "dayjs";
-import { CloseOutlined, DeleteFilled, UploadOutlined } from "@ant-design/icons";
+import { CloseOutlined, DeleteFilled, UploadOutlined, PlusOutlined, CloseSquareFilled } from "@ant-design/icons";
+import ReactQuill from 'react-quill';
+
+
+var __awaiter =
+    (this && this.__awaiter) ||
+    function (thisArg, _arguments, P, generator) {
+        function adopt(value) {
+            return value instanceof P
+                ? value
+                : new P(function (resolve) {
+                    resolve(value);
+                });
+        }
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) {
+                try {
+                    step(generator.next(value));
+                } catch (e) {
+                    reject(e);
+                }
+            }
+            function rejected(value) {
+                try {
+                    step(generator['throw'](value));
+                } catch (e) {
+                    reject(e);
+                }
+            }
+            function step(result) {
+                result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+            }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    };
+const getBase64 = file =>
+    new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+
 
 const { TextArea } = Input;
 const TrainingPage = () => {
@@ -14,8 +58,31 @@ const TrainingPage = () => {
     const [viewOpen, setViewOpen] = useState(false); // State for view modal
     const [selectedTraining, setSelectedTraining] = useState(null); // State for selected training details
     const [formCat] = Form.useForm();
-    const [fileSelected, setFileSelected] = useState(null);
-    const [filePreview, setFilePreview] = useState(null);
+ 
+
+    const [previewOpen, setPreviewOpen] = useState(false);
+    const [previewImage, setPreviewImage] = useState('');
+    const [imageDefault, setImageDefault] = useState([]);
+    const [imageOptional, setImageOptional] = useState([]);
+    const [imageOptional_Old, setImageOptional_Old] = useState([]);
+
+     const [isEditMode, setIsEditMode] = useState(false);
+    
+
+    const handlePreview = file =>
+        __awaiter(void 0, void 0, void 0, function* () {
+            if (!file.url && !file.preview) {
+                file.preview = yield getBase64(file.originFileObj);
+            }
+            setPreviewImage(file.url || file.preview);
+            setPreviewOpen(true);
+        });
+  
+    const handleChangeImageDefault = ({ fileList }) => {
+        setImageDefault(fileList);
+    };
+
+    const handleChangeImageOptional = ({ fileList: newFileList }) => setImageOptional(newFileList);
 
     useEffect(() => {
         formCat.setFieldsValue({
@@ -46,13 +113,43 @@ const TrainingPage = () => {
         }
     };
 
-    const onClickBtnEdit = (item) => {
-        formCat.setFieldsValue({
-            ...item,
-            "image": item.Image
-        });
-        setFilePreview(Config.image_path + item.Image);
+    const onClickBtnEdit = async (item) => {
+        formCat.setFieldsValue({ ...item });
         setOpen(true);
+        // setIsEditMode(true);
+
+        // Set main image
+        if (item.image !== "" && item.image !== null) {
+            const imageTrain = [
+                {
+                    uid: "-1",
+                    name: item.image,
+                    status: "done",
+                    url: Config.image_path + item.image,
+                }
+            ];
+            setImageDefault(imageTrain);
+
+        }
+        // Fetch optional images
+        const res_image = await request("tbtraining_image/" + item.id, "get");
+        if (res_image && !res_image.error) {
+            if (res_image.list) {
+                var imageTrainOptional = [];
+                res_image.list.map((item, index) => {
+                    imageTrainOptional.push({
+                        uid: index,
+                        name: item.image,
+                        status: "done",
+                        url: Config.image_path + item.image,
+
+                    });
+                });
+                setImageOptional(imageTrainOptional);
+                setImageOptional_Old(imageTrainOptional);
+
+            }
+        }
     };
 
     const onClickBtnDelete = async (item) => {
@@ -76,23 +173,107 @@ const TrainingPage = () => {
         });
     };
 
-    const onClickBtnView = (item) => {
+    const onClickBtnView = async (item) => {
+        const res_image = await request("tbtraining_image/" + item.id, "get");
+
+        if (res_image && !res_image.error && res_image.list) {
+            const imageTrainOptional = res_image.list.map((imgItem, index) => ({
+                uid: index,
+                name: imgItem.image,
+                status: "done",
+                url: Config.image_path + imgItem.image,
+            }));
+    
+            setImageOptional(imageTrainOptional); // ← this line was missing
+        } else {
+            setImageOptional([]); // Clear if no images found
+        }
+
         setSelectedTraining(item);
         setViewOpen(true);
     };
 
     const onFinish = async (item) => {
-        var id = formCat.getFieldValue("id");
+        ///kkkkk
+        // console.log("imageTrainOptional",imageOptional_Old);
+        // console.log(item);
+        var imageOptional = [];
+        if (imageOptional_Old.length > 0 && item.image_optional) {
+            imageOptional_Old.map((item1, index1) => {
+                var isFound = false;
+                if (item.image_optional) {
+                    // console.log(item.image_optional)
+                    item.image_optional.fileList?.map((item2, index2) => {
+                        //multi image
+                        if (item1.name == item2.name) {
+                            isFound = true;
+
+                        }
+
+                    });
+                }
+
+
+                if (isFound == false) {
+                    imageOptional.push(item1.name);
+                }
+
+            });
+        }
+        
         var form = new FormData();
-        form.append("id", id);
         form.append("title", item.title);
         form.append("description", item.description);
-        form.append("PreImage", formCat.getFieldValue("image"));
-        if (fileSelected != null) {
-            form.append("image", fileSelected);
+        form.append("image", formCat.getFieldValue("image"));
+
+        if (imageOptional && imageOptional.length > 0) {
+            // image for remove
+            imageOptional.map((item) => {
+                form.append("image_optional", item);
+            });
+
         }
-        var method = (id == null ? "post" : "put");
-        const url = (id == null ? "training/create" : "training/update");
+
+
+        form.append("id", formCat.getFieldValue("id"));
+        if (item.image_default) {
+            if (item.image_default.file.status === "removed") {
+                form.append("image_remove", "1");
+            } else {
+                form.append(
+                    "upload_image",
+                    item.image_default.file.originFileObj,
+                    item.image_default.file.name
+                );
+            }
+        }
+
+        if (item.image_optional) {
+            // console.log(item.image_optional)
+            item.image_optional.fileList?.map((items, index) => {
+                //multi image
+                if (items?.originFileObj) {
+                    form.append("upload_image_optional", items.originFileObj, items.name);
+
+                }
+
+
+            });
+
+        }
+        var method = "post";
+        if (formCat.getFieldValue("id")) {
+            method = "put";
+        }
+        // const res = await request("")
+
+        //var method = (id == null ? "post" : "put");
+        var url = "training/create"
+        if (formCat.getFieldValue("id")) {
+            url = "training/update"
+        }
+        //  const url = (id == null ? "training/create" : "training/update");
+        // const
         const res = await request(url, method, form);
         if (res) {
             if (res.error) {
@@ -103,10 +284,11 @@ const TrainingPage = () => {
                 message.error(mgs);
                 return false;
             }
-            message.success(res.message);
+            // message.success(res.message);
+            message.success("Insert Success");
             getList();
             onCloseModal();
-            window.location.reload();
+            // window.location.reload();
         }
     };
 
@@ -117,33 +299,17 @@ const TrainingPage = () => {
         getList();
     };
 
-    const onChangeStatus = (value) => {
-        filterRef.current.value = value;
-        getList();
-    };
-
     const onCloseModal = () => {
-        formCat.resetFields();
-        formCat.setFieldsValue({
-            Status: "1"
-        });
+
+        // formCat.setFieldsValue({
+        //     Status: "1"
+        // });
         setOpen(false);
-        onRemoveFileSelected();
-    };
+        setImageDefault([]);
+        setImageOptional([]);
+        formCat.resetFields();
 
-    const onRemoveFileSelected = () => {
-        fileRef.current.value = null;
-        setFileSelected(null);
-        setFilePreview(null);
-    };
-
-    const handleChangeFile = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const filePreview = URL.createObjectURL(file);
-            setFileSelected(file);
-            setFilePreview(filePreview);
-        }
+        // onRemoveFileSelected();
     };
 
     const toKhmerNumeral = (num) => {
@@ -158,6 +324,18 @@ const TrainingPage = () => {
         return `ថ្ងៃទី${day} ខែ${month} ${year}`;
     };
 
+
+    const openNewModal = () => {
+        // formCat.setFieldsValue({
+        //     title:"A",
+        //     description:"B"
+        // })    
+     //   setFilePreview(null);
+        //setFileSelected(null);
+      //  setIsEditMode(false);
+        setOpen(true);
+        formCat.resetFields();
+    };
     return (
         <MainPage loading={loading}>
             <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: 10 }}>
@@ -166,8 +344,12 @@ const TrainingPage = () => {
                     <Input.Search allowClear onChange={onChangeSearch} placeholder="ស្វែងរក" onSearch={onTextSearch} />
                 </Space>
 
-                <Button onClick={() => { setOpen(true) }} type="primary">បន្ថែមថ្មី</Button>
+                {/* <Button icon={<PlusOutlined />} type="primary" onClick={() => setOpen(true)}> */}
+                <Button icon={<PlusOutlined />} type="primary" onClick={openNewModal}>
+                    បន្ថែម
+                </Button>
             </div>
+            <Divider />
             <Table
                 dataSource={list}
                 pagination={{
@@ -199,11 +381,16 @@ const TrainingPage = () => {
                         dataIndex: "description",
                         ellipsis: true,
                         width: '20',
+                        render: (value) => {
+                            if (typeof value === 'string') {
+                                return <span dangerouslySetInnerHTML={{ __html: value }} />;
+                            }
+                        }
                     },
                     {
-                        key: "Image",
+                        key: "image",
                         title: "រូបភាព",
-                        dataIndex: "Image",
+                        dataIndex: "image",
                         render: (value) => {
                             if (value != null && value != "") {
                                 return (
@@ -244,13 +431,15 @@ const TrainingPage = () => {
                 ]}
             />
             <Modal
-                title={(formCat.getFieldValue("id") == null) ? "វគ្គបណ្តុះបណ្តាល | បន្ថែមថ្មី" : " វគ្គបណ្តុះបណ្តាល | កែប្រែ"}
+                // title={(formCat.getFieldValue("id") == null) ? "វគ្គបណ្តុះបណ្តាល | បន្ថែមថ្មី" : " វគ្គបណ្តុះបណ្តាល | កែប្រែ"}
+                title={isEditMode ? "វគ្គបណ្តុះបណ្តាល | បន្ថែមថ្មី" : " វគ្គបណ្តុះបណ្តាល | កែប្រែ"}
                 open={open}
                 onCancel={onCloseModal}
                 footer={null}
-                width={600}
+                width={"100%"}
                 maskClosable={false}
             >
+                <Divider />
 
                 <Form
                     form={formCat}
@@ -274,59 +463,88 @@ const TrainingPage = () => {
                         </Col>
                     </Row>
                     <Row>
+                        <Form.Item name={"image_default"} label="Cover រូបភាព (Upload បានត្រឹមចំនួន ១​សន្លឹក )">
+                            <Upload
+
+                                customRequest={(options) => {
+                                    options.onSuccess();
+                                }}
+
+                                multiple={true}
+                                maxCount={1}
+                                listType="picture-card"
+                                fileList={imageDefault}
+                                onPreview={handlePreview}
+                                onChange={handleChangeImageDefault}
+                            >
+                                <div>+ Upload</div>
+                            </Upload>
+                        </Form.Item>
+                    </Row>
+                    <Row>
                         <Col span={24}>
                             <Form.Item
                                 label="មាតិកា"
-                                name={"description"}
+                                name="description"
                                 rules={[
                                     {
                                         required: true,
                                         message: "សូមបំពេញមាតិកា!",
-                                    }
+                                    },
                                 ]}
                             >
-                                <TextArea style={{ width: "100%" }} placeholder="មាតិកា" rows={4} />
+                                <ReactQuill
+                                    theme="snow"
+                                    style={{ height: 500 }}
+                                    onChange={(value) => formCat.setFieldsValue({ description: value })}
+                                    value={formCat.getFieldValue("description")}
+                                />
                             </Form.Item>
+
                         </Col>
                     </Row>
-                    <Row gutter={5}>
+                   
+                    <Row>
                         <Col span={12}>
-                            <Form.Item
-                                label="Upload រូបភាព"
-                            >
-                                <>
-                                    <div style={{ width: "90%", position: 'relative' }}>
-                                        {!isEmptyOrNull(filePreview) &&
-                                            <CloseOutlined
-                                                onClick={onRemoveFileSelected}
-                                                style={{ color: "red", fontSize: 18, position: 'absolute', top: -6, right: -6, backgroundColor: "#EEE", padding: 3 }} />
-                                        }
-                                        {!isEmptyOrNull(filePreview) ?
-                                            <img
-                                                src={filePreview}
-                                                style={{ width: "90%" }}
-                                                alt=""
-                                            />
-                                            :
-                                            <div style={{ width: 70, height: 70, backgroundColor: '#EEE' }}></div>
-                                        }
-                                    </div>
-                                    <input onChange={handleChangeFile} ref={fileRef} type="file" id="selectedFile" style={{ display: "none" }} />
-                                    <Button
-                                        icon={<UploadOutlined />}
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            document.getElementById('selectedFile').click();
-                                        }}
-                                        style={{ marginTop: 10, marginLeft: 3, width: "50%" }}
-                                    >
-                                        Browse...
-                                    </Button>
-                                </>
-                            </Form.Item>
+
                         </Col>
+                    </Row>
+                   
+                    <br></br>
+
+                    <Row>
+                        <Form.Item name={"image_optional"} label="រូបភាពច្រើន(Upload បានត្រឹមចំនួន ១៥​​សន្លឹក ប៉ុណ្ណោះ)">
+                            <Upload
+
+                                customRequest={(options) => {
+                                    options.onSuccess();
+                                }}
+
+                                multiple={true}
+                                maxCount={15}
+                                listType="picture-card"
+                                fileList={imageOptional}
+                                onPreview={handlePreview}
+                                onChange={handleChangeImageOptional}
+                            >
+                                <div>+ Upload</div>
+                            </Upload>
+
+                        </Form.Item>
                     </Row>
 
+                    {previewImage && (
+                        <Image
+                            wrapperStyle={{ display: 'none' }}
+                            preview={{
+                                visible: previewOpen,
+                                onVisibleChange: visible => setPreviewOpen(visible),
+                                afterOpenChange: visible => !visible && setPreviewImage(''),
+                            }}
+                            src={previewImage}
+                        />
+                    )}
+                    <Divider></Divider>
                     <Form.Item style={{ textAlign: "right" }}>
                         <Space>
                             <Button onClick={onCloseModal}>បដិសេធ</Button>
@@ -346,18 +564,77 @@ const TrainingPage = () => {
                 maskClosable={false}
             >
                 {selectedTraining && (
-                    <div>
-                        <h3>ចំណង់ជើង: {selectedTraining.title}</h3>
-                        <p>មាតិកា: {selectedTraining.description}</p>
-                        {selectedTraining.Image && (
-                            <Image
-                                src={Config.image_path + selectedTraining.Image}
-                                alt="រូបភាព"
-                                width={200}
-                            />
-                        )}
-                        <p>ថ្ងៃបង្កើត: {formatKhmerDate(selectedTraining.createdAt)}</p>
-                    </div>
+                  <div style={{ padding: '16px', maxWidth: '1000px', margin: '0 auto' }}>
+                  <h6 style={{ fontSize: '14px', marginBottom: '12px' }}>
+                      ចំណងជើង: {selectedTraining.title}
+                  </h6>
+              
+                  {selectedTraining.image && (
+                      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+                          <Image
+                              src={Config.image_path + selectedTraining.image}
+                              alt="រូបភាព"
+                            //   style={{
+                            //       maxWidth: '100%',
+                            //       height: 'auto',
+                            //       borderRadius: '10px',
+                            //       boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)'
+                            //   }}
+                            style={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                justifyContent: 'center',
+                                gap: '-30px',
+                                marginTop: '10px'
+                            }}
+                          />
+                      </div>
+                  )}
+              
+                  <div
+                      dangerouslySetInnerHTML={{ __html: selectedTraining.description }}
+                      style={{ marginBottom: '16px', fontSize: '16px', lineHeight: '1.6' }}
+                  />
+              
+                  <p style={{ fontStyle: 'italic', color: '#888' }}>
+                      ថ្ងៃបង្កើត: {formatKhmerDate(selectedTraining.createdAt)}
+                  </p>
+              
+                  <Divider />
+              
+                  {imageOptional.length > 0 && (
+                      <Image.PreviewGroup>
+                          <div
+                              style={{
+                                  display: 'flex',
+                                  flexWrap: 'wrap',
+                                  gap: '12px',
+                                  justifyContent: 'flex-start',
+                                  marginTop: '10px'
+                              }}
+                          >
+                              {imageOptional.map((file, index) => (
+                                  <Image
+                                  key={index}
+                                  src={file.url}
+                                  alt={`រូបភាពទី ${index + 1}`}
+                                  width={180}
+                                  height={120} // Add a fixed height
+                                  style={{
+                                      borderRadius: '8px',
+                                      boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+                                      objectFit: 'cover', // Ensures crop instead of distortion
+                                      width: '180px',
+                                      height: '120px'
+                                  }}
+                              />
+                              
+                              ))}
+                          </div>
+                      </Image.PreviewGroup>
+                  )}
+              </div>
+              
                 )}
             </Modal>
         </MainPage>

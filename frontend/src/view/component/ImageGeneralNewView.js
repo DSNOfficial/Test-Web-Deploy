@@ -86,7 +86,7 @@ const ImageGeneralNewView = () => {
           <NavLink to={`/page/trainers/${item.id}`}>
             <img
               style={styles.image}
-              src={item.Image ? `${Config.image_path}${item.image}` : "/placeholder.png"}
+              src={item.image ? `${Config.image_path}${item.image}` : "/placeholder.png"}
               alt={item.title || "News"}
             />
           </NavLink>

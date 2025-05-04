@@ -58,7 +58,7 @@ const formatKhmerDate = (dateString) => {
 
   const khmerMonths = [
     "មករា",
-    "កម្ភៈ",
+     "កុម្ភៈ",
     "មីនា",
     "មេសា",
     "ឧសភា",

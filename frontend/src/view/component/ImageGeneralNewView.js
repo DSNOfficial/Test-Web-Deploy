@@ -35,6 +35,7 @@ const ImageGeneralNewView = () => {
       display: "flex",
       flexDirection: "column",
       gap: "20px",
+      color: "#343293",
     },
     card: {
       display: "flex",
@@ -45,11 +46,19 @@ const ImageGeneralNewView = () => {
       backgroundColor: "#fff",
       boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
     },
-    image: {
+    imageBox: {
       width: "121px",
       height: "85px",
-      objectFit: "cover",
       borderRadius: "4px",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      flexShrink: 0,
+      backgroundColor: "#eee",
+      transition: "transform 0.4s ease",
+    },
+    imageBoxHover: {
+      transform: "scale(1.05)",
     },
     textContainer: {
       flex: 1,
@@ -57,15 +66,14 @@ const ImageGeneralNewView = () => {
     title: {
       fontSize: "14px",
       fontWeight: "bold",
-      color: "#333",
+      color: "#343293",
       lineHeight: "1.5",
       margin: 0,
       display: "-webkit-box",
-      WebkitLineClamp: 4, // Limit to 2 lines
+      WebkitLineClamp: 4,
       WebkitBoxOrient: "vertical",
       overflow: "hidden",
       textOverflow: "ellipsis",
-      color:"#343293"
     },
     newLabel: {
       display: "inline-block",
@@ -76,31 +84,57 @@ const ImageGeneralNewView = () => {
       fontSize: "12px",
       marginLeft: "10px",
       fontWeight: "bold",
+      animation: "flash 1.5s infinite",
     },
   };
 
+  // Optional: Add inline animation style
+  const flashKeyframes = `
+    @keyframes flash {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+  `;
+
   return (
-    <div style={styles.container}>
-      {list.map((item, index) => (
-        <div key={index} style={styles.card}>
-          <NavLink to={`/page/trainers/${item.id}`}>
-            <img
-              style={styles.image}
-              src={item.image ? `${Config.image_path}${item.image}` : "/placeholder.png"}
-              alt={item.title || "News"}
-            />
-          </NavLink>
-          <div style={styles.textContainer}>
+    <>
+      <style>{flashKeyframes}</style>
+      <div style={styles.container}>
+        {list.map((item) => (
+          <div key={item.id} style={styles.card}>
             <NavLink to={`/page/trainers/${item.id}`}>
-              <p style={styles.title}>
-                {isNewPost(item.createdAt) && <span style={styles.newLabel}>ថ្មី</span>}
-                {item.title || "Untitled"}
-              </p>
+              <div
+                style={{
+                  ...styles.imageBox,
+                  backgroundImage: `url(${item.image ? `${Config.image_path}${item.image}` : "/placeholder.png"})`,
+                }}
+                className="hover-zoom"
+              />
             </NavLink>
+            <div style={styles.textContainer}>
+              <NavLink to={`/page/trainers/${item.id}`}>
+                <p style={styles.title}>
+                  {isNewPost(item.createdAt) && <span style={styles.newLabel}>ថ្មី</span>}
+                  {item.title || "Untitled"}
+                </p>
+              </NavLink>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+
+      {/* CSS for hover zoom animation */}
+      <style>
+        {`
+          .hover-zoom {
+            transition: transform 0.4s ease;
+          }
+          .hover-zoom:hover {
+            transform: scale(1.05);
+          }
+        `}
+      </style>
+    </>
   );
 };
 

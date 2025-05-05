@@ -81,7 +81,8 @@ const FooterPageView = () => {
       <Row gutter={[16, 16]}> 
         <Col xs={24} sm={12} lg={8}> 
           <div title="Location">
-            <h3 style={fontColor}>ទីតាំងរបស់មន្ទីរពេទ្យជាតិ</h3>
+          
+             <h3 style={fontColor}>ទីតាំងរបស់មន្ទីរពេទ្យជាតិ តេជោសន្តិភាព</h3>
             <Divider />
             <Iframe
               src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15632.240039949625!2d104.8140681!3d11.6190721!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31094d0ed2f142e7%3A0xbb44c329370f82fd!2sTecho%20Santepheap%20National%20Hospital!5e0!3m2!1sen!2skh!4v1714103183404!5m2!1sen!2skh"
@@ -173,7 +174,8 @@ const FooterPageView = () => {
 
         <Col xs={24} sm={12} lg={8}>
           <div title="Social Media">
-            <h3 style={fontColor}>ហ្វេសប៊ុកផ្លូវការរបស់មន្ទីរពេទ្យជាតិ</h3>
+           
+              <h3 style={fontColor}>ហ្វេសប៊ុកផ្លូវការរបស់មន្ទីរពេទ្យជាតិ តេជោសន្តិភាព</h3>
             <Divider />
             <Iframe
               src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ftsnhhospital&tabs=timeline&width=600&height=250&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId"

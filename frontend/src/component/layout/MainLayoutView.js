@@ -47,7 +47,7 @@ const translations = {
     paitientOut: "patient-Out",
     packageH: "Package Hospital",
     structure : "Structure",
-    valueH: "Value",
+    // valueH: "Value",
     vision: "Vision",
    
   },
@@ -67,7 +67,7 @@ const translations = {
     mission: "បេសកកម្ម",
     moreAboutUs: "More About Us",
     vision: "Vision",
-    values: "Values",
+    // values: "Values",
     department: "សេវាព្យាបាល",
     training: "ការបណ្តុះបណ្តាល",
     partners: "ដៃគូសហការ",
@@ -242,9 +242,9 @@ const MainLayoutView = () => {
                 <Menu.Item key="mission"style={colorFont} onClick={() => handleMenuClick('/page/mission/1')}>
                   {t.mission}
                 </Menu.Item>
-                <Menu.Item key="valueH" style={colorFont} onClick={() => handleMenuClick('/page/value/1')}>
+                {/* <Menu.Item key="valueH" style={colorFont} onClick={() => handleMenuClick('/page/value/1')}>
                   {t.valueH}
-                </Menu.Item>
+                </Menu.Item> */}
               </Menu.ItemGroup>
             </SubMenu>
 
@@ -363,9 +363,9 @@ const MainLayoutView = () => {
                 <Menu.Item key="/page/mission/1" onClick={() => handleMenuClick('/page/mission/1')}>
                   {t.mission}
                 </Menu.Item>
-                <Menu.Item key="/page/value/1" onClick={() => handleMenuClick('/page/value/1')}>
+                {/* <Menu.Item key="/page/value/1" onClick={() => handleMenuClick('/page/value/1')}>
                   {t.valueH}
-                </Menu.Item>
+                </Menu.Item> */}
               </Menu.ItemGroup>
             </SubMenu>
 

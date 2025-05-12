@@ -81,8 +81,7 @@ const FooterPageView = () => {
       <Row gutter={[16, 16]}> 
         <Col xs={24} sm={12} lg={8}> 
           <div title="Location">
-          
-             <h3 style={fontColor}>ទីតាំងមន្ទីរពេទ្យជាតិ តេជោសន្តិភាព</h3>
+            <h3 style={fontColor}>ទីតាំងរបស់មន្ទីរពេទ្យជាតិ តេជោសន្តិភាព</h3>
             <Divider />
             <Iframe
               src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15632.240039949625!2d104.8140681!3d11.6190721!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31094d0ed2f142e7%3A0xbb44c329370f82fd!2sTecho%20Santepheap%20National%20Hospital!5e0!3m2!1sen!2skh!4v1714103183404!5m2!1sen!2skh"
@@ -115,7 +114,8 @@ const FooterPageView = () => {
           <div style={paragraphStyle}>
             <h3 style={fontColor} >ព័ត៌មានទូទៅ</h3>
             <Divider />
-                       <ul style={listStyle}>
+
+            <ul style={listStyle}>
   <li
     style={listItemStyle}
     title="ដៃគូសហការ"
@@ -161,24 +161,31 @@ const FooterPageView = () => {
     <NavLink to="/page/books" style={listStyle}>ច្បាប់ និងបទដ្ឋានគតិយុត្ត</NavLink>
   </li>
 </ul>
-            
+
+
+
+            {/* <ul style={listStyle}> 
+              <li style={listItemStyle} title="ដៃគូសហការ"><NavLink to="/page/partners" style={listStyle}>ដៃគូសហការ</NavLink></li>
+              <li style={listItemStyle} title="វគ្គបណ្តុះបណ្តាល"><NavLink to="/page/trainers" style={listStyle}>វគ្គបណ្តុះបណ្តាល</NavLink></li>
+              <li style={listItemStyle} title="បេសកកម្ម"><NavLink to="/page/mission" style={listStyle}>បេសកកម្ម</NavLink></li>
+              <li style={listItemStyle} title="អនុក្រឹត្យ"><NavLink to="/page/books"style={listStyle} >ច្បាប់ និងបទដ្ឋានគតិយុត្ត</NavLink></li>
+            </ul> */}
             <Divider />
             <h3>ទំនាក់ទំនង</h3>
-          
-
-           ​​​​ <div style={{margin:10,paddingTop:0}}>
+            <div style={{margin:10,paddingTop:0}}>
             <p style={paragraphStyle}>អាសយដ្ឋាន:មហាវិថីឈ្នះឈ្នះ ភូមិកប់ស្រូវ <br/>សង្កាត់គោករកា​ ខណ្ឌព្រែកព្នៅ រាជធានីភ្នំពេញ</p>
             <p>ទូរស័ព្ទ: (+855) 87 781 119</p>
             <p>អ៊ីម៉ែល: tsnh.hospital@gmail.com</p>
 
             </div>
-          </div>
+            
+  
+           </div>
         </Col>
 
         <Col xs={24} sm={12} lg={8}>
           <div title="Social Media">
-           
-              <h3 style={fontColor}>ហ្វេសប៊ុកផ្លូវការមន្ទីរពេទ្យជាតិ តេជោសន្តិភាព</h3>
+            <h3 style={fontColor}>ហ្វេសប៊ុកផ្លូវការមន្ទីរពេទ្យជាតិ តេជោសន្តិភាព</h3>
             <Divider />
             <Iframe
               src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ftsnhhospital&tabs=timeline&width=600&height=250&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId"

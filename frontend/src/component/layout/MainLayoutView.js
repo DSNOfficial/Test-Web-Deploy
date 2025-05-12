@@ -239,7 +239,7 @@ const MainLayoutView = () => {
                 <Menu.Item key="vision"style={colorFont}  onClick={() => handleMenuClick('/page/vision/2')}>
                   {t.vision}
                 </Menu.Item>
-                <Menu.Item key="mission"style={colorFont} onClick={() => handleMenuClick('/page/mission')}>
+                <Menu.Item key="mission"style={colorFont} onClick={() => handleMenuClick('/page/mission/1')}>
                   {t.mission}
                 </Menu.Item>
                 <Menu.Item key="valueH" style={colorFont} onClick={() => handleMenuClick('/page/value/1')}>
@@ -360,7 +360,7 @@ const MainLayoutView = () => {
                 <Menu.Item key="/page/vision/2" onClick={() => handleMenuClick('/page/vision/2')}>
                   {t.vision}
                 </Menu.Item>
-                <Menu.Item key="/page/mission" onClick={() => handleMenuClick('/page/mission')}>
+                <Menu.Item key="/page/mission/1" onClick={() => handleMenuClick('/page/mission/1')}>
                   {t.mission}
                 </Menu.Item>
                 <Menu.Item key="/page/value/1" onClick={() => handleMenuClick('/page/value/1')}>

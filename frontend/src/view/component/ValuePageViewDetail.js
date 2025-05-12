@@ -48,7 +48,7 @@ const ValuePageViewDetail = () => {
   const getOne = async () => {
     setLoading(true);
     try {
-      const res = await request(`values/getList`, "post", { id });
+      const res = await request(`values/getone`, "post", { id });
       if (res && res.data) {
         setBlog(res.data);
         setTimeout(() => {

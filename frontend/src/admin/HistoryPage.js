@@ -7,6 +7,7 @@ import 'dayjs/locale/km'; // Ensure the custom locale is imported
 import MainPage from "../component/page/MainPage";
 import 'react-quill/dist/quill.snow.css'; // Import Quill styles
 import "../component/assets/css/TextEditor.css";
+import ReactQuill from 'react-quill';
 import { Config, isEmptyOrNull, formatDateClient } from "../config/helper";
 
 const { TextArea } = Input;
@@ -36,8 +37,8 @@ const HistoryPage = () => {
         textAlign: "justify",
         textJustify: "inter-word",
         padding: '8px',
-      };
-      
+    };
+
     const getList = async () => {
         setLoading(true);
         const param = {
@@ -215,7 +216,7 @@ const HistoryPage = () => {
             title: "ចំណង់ជើង",
             dataIndex: "title",
         },
-   
+
         {
             key: "Image",
             title: "រូបភាព",
@@ -315,18 +316,25 @@ const HistoryPage = () => {
                             <Col span={24}>
                                 <Form.Item
                                     label="មាតិកា"
-                                    name={"description"}
+                                    name="description"
                                     rules={[
                                         {
                                             required: true,
                                             message: "សូមបំពេញមាតិកា!",
-                                        }
+                                        },
                                     ]}
                                 >
-                                    <TextArea style={{ width: "100%" }} placeholder="មាតិកា" rows={4} />
+                                    <ReactQuill
+                                        theme="snow"
+                                        style={{ height: 500 }}
+                                        onChange={(value) => formCat.setFieldsValue({ description: value })}
+                                        value={formCat.getFieldValue("Description")}
+                                    />
                                 </Form.Item>
+
                             </Col>
                         </Row>
+                        <br/>
                         <Form.Item
                             label="Upload រូបភាព"
                         >

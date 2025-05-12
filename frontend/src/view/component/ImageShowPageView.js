@@ -70,6 +70,7 @@ const ContentCard = ({ imageSrc, title, description }) => {
                     }}
                 />
                 </Paragraph>
+                
                 {description.length > maxLength && (
                     <Button type="link" onClick={toggleExpand} style={{marginLeft:"auto",  fontFamily: 'KhmerOSSiemReap',}}>
                         {isExpanded ? "បង្ហាញ" : "អានបន្ថែម"}

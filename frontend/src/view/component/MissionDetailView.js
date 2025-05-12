@@ -1,23 +1,42 @@
+
 import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { Config } from "../../config/helper";
 import { request } from "../../config/request";
-import { Card, message, Spin, Image, Divider,Col ,Row,Typography} from 'antd';
+import {
+  Card,
+  message,
+  Spin,
+  Image,
+  Divider,
+  Col,
+  Row,
+  Typography,
+} from "antd";
 import ErrorFoundPageView from "./ErrorFoundPageView";
-// import PartnerPageView from "./PartnerPageView";
 
-const { Meta } = Card;
+const { Title, Paragraph } = Typography;
 
 const containerStyle = {
-  padding: '20px',
-  margin: '0 auto',
-  maxWidth: '1200px',
-  backgroundColor: 'white',
-  marginTop: '-25px',
+  padding: "40px 20px",
+  margin: "0 auto",
+  maxWidth: "1000px",
+  backgroundColor: "#ffffff",
+  boxShadow: "0 4px 20px rgba(0, 0, 0, 0.05)",
+  borderRadius: "12px",
+  marginTop: "30px",
+};
+
+const imageStyle = {
+  width: "100%",
+  height: "auto",
+  maxHeight: "500px",
+  objectFit: "cover",
+  borderRadius: "8px",
+  marginBottom: "24px",
 };
 
 const MissionDetailView = () => {
-  const [list, setList] = useState([]);
   const { id } = useParams();
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -27,28 +46,6 @@ const MissionDetailView = () => {
     getOne();
   }, [id]);
 
-  const { Paragraph, Text } = Typography;
-
-  const imgContainerStyle = {
-    display: 'flex',
-    justifyContent: 'center', // Center the image horizontally
-    alignItems: 'center',     // Optional: Center vertically if needed
-    marginTop: '20px',
-  };
-
-  const imgStyle = {
-    display: 'block',
-    width: "87%",
-    maxWidth: "100%", // Ensure it remains responsive
-    height: "auto",   // Maintain aspect ratio
-    marginBottom: '70px', // Add margin-bottom to the image
-    marginTop :'-50px',
-  };
-  
-const cardStyle = {
-  width: "100%",
-  marginBottom: "20px",
-};
   const getOne = async () => {
     setLoading(true);
     try {
@@ -56,13 +53,13 @@ const cardStyle = {
       if (res && res.data) {
         setBlog(res.data);
         setTimeout(() => {
-          contentRef.current?.scrollIntoView({ behavior: 'smooth' });
+          contentRef.current?.scrollIntoView({ behavior: "smooth" });
         }, 50);
       } else {
-        message.error("Partner post not found");
+        message.error("Value not found");
       }
     } catch (error) {
-      message.error("Failed to fetch the blog post");
+      message.error("Failed to fetch the value post");
     } finally {
       setLoading(false);
     }
@@ -70,8 +67,8 @@ const cardStyle = {
 
   if (loading) {
     return (
-      <div style={containerStyle}>
-        <Spin spinning={loading} />
+      <div style={{ padding: "60px", textAlign: "center" }}>
+        <Spin spinning tip="កំពុងដំណើរការ... សូមរងចាំ" />
       </div>
     );
   }
@@ -85,77 +82,68 @@ const cardStyle = {
   }
 
   return (
-    <div style={containerStyle} ref={contentRef}>  
-      <Spin spinning={loading} tip="ប្រព័ន្ធកំពុងដំណើរការ... សូមរងចាំ">
-        <Row gutter={[12, 12]}>
-          <Col xs={24} md={17}>
+    <div style={containerStyle} ref={contentRef}>
+      <Spin spinning={loading}>
+        <Row gutter={[16, 16]}>
+          <Col span={24}>
+          
+            {blog.image && (
+              
+             <Image
+  src={Config.image_path + blog.image}
+  alt={blog.Title}
+  preview={false}
+  // style={{
+  //   width: "100%",
+  //   maxHeight: "500px",
+  //   objectFit: "cover",
+  //   borderRadius: "12px",
+  //   boxShadow: "0 8px 24px rgba(0, 0, 0, 0.1)",
+  //   transition: "transform 0.3s ease",
+  // }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.transform = "scale(1.01)";
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.transform = "scale(1)";
+  }}
+/>
+
+            )}
           </Col>
 
-        </Row>
-        <Row gutter={[2, 2]}>
-                <Col xs={24} md={17}>
-                <div style={imgContainerStyle}>
-              
-                </div>      
-                        <Card                          
-                            hoverable
-                            style={cardStyle}
-                            bodyStyle={{
-                                padding: 0,
-                                overflow: 'hidden',
-                            }}
-                        >
-                         
-                          
+          <Col span={24}>
+            <Card
+              bordered={false}
+              style={{ background: "transparent", boxShadow: "none" }}
+            >
+              {/* <Title level={3} style={{ color: "#2c4089", marginBottom: 0,marginTop: -20 }}>
+                {blog.Title}
+              </Title> */}
 
-                            <Row gutter={[5, 5]} align="middle">
-                        
-                                <Col xs={24} md={24}>
-                                    <div style={{ padding: 32 }}>
-                                                        <Paragraph>
-                                                        <h4 style={{
-                              color:"#2c4089",
-                              textAlign: 'justify',       
-                              textJustify: 'inter-word',
-                            
-                              }}>{blog.title} / </h4>
-                    
-                              <Divider></Divider>
-<div 
-                          style={{ 
-                            marginTop: '-10px', 
-                            textAlign: 'justify', 
-                            textJustify: 'inter-word' 
-                          }} 
-                          dangerouslySetInnerHTML={{ __html: blog.description }} 
-          />
-                 
-                                            {/* {item.description} */}
-                                        </Paragraph>
-                                      
-                                    </div>
-                                </Col>
-                                <Col xs={24} md={24}>
-                                <div style={imgContainerStyle}>
-                                    <img
-                                        alt="avatar"
-                                        src={Config.image_path + blog.Image}
-                                        style={imgStyle}
-                                    />
-                                    </div>
-                                </Col>
-                            </Row>
-                        </Card>
-                 
-                </Col>
-               
+            
+<div
+  style={{
+    fontSize: "16px",
+    lineHeight: 1.8,
+    color: "#1a237e",
+    textAlign: "justify",
+    textJustify: "inter-word",
+  }}
+  dangerouslySetInnerHTML={{ __html: blog.Description }}
+/>
+  <Divider />
+
+            </Card>
+          </Col>
         </Row>
-      </Spin>   
+      </Spin>
     </div>
   );
-}
+};
 
 export default MissionDetailView;
+
 
 
 

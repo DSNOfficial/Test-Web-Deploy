@@ -4,7 +4,6 @@ import { request } from "../../config/request";
 import { Card, Typography, Divider, Row, Col, message, Pagination,Tabs } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import logo12 from "../../component/assets/image/a.png"
-
 import dayjs from 'dayjs';
 import ImageShowPageView from "./ImageShowPageView";
 import ImageGeneralNewView from "./ImageGeneralNewView";
@@ -178,4 +177,3 @@ const ImageShowWithNewsView = () => {
 };
 
 export default ImageShowWithNewsView;
-

@@ -147,7 +147,7 @@ const FooterPageView = () => {
     onMouseEnter={(e) => (e.currentTarget.style.textDecoration = 'underline')}
     onMouseLeave={(e) => (e.currentTarget.style.textDecoration = 'none')}
   >
-    <NavLink to="/page/mission" style={listStyle}>បេសកកម្ម</NavLink>
+    <NavLink to="/page/mission/1" style={listStyle}>បេសកកម្ម</NavLink>
   </li>
   <li
     style={listItemStyle}

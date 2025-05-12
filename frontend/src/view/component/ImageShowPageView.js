@@ -60,14 +60,15 @@ const ContentCard = ({ imageSrc, title, description }) => {
                     {title}
                 </Title>
                 <Paragraph
-                    style={{ textAlign: "justify", color: "#343293",  fontFamily: 'KhmerOSSiemReap' }}
-                    ellipsis={
-                        !isExpanded
-                            ? { rows: 3, expandable: false, tooltip: description.length > maxLength }
-                            : false
-                    }
+                style={{ color: "#343293", fontFamily: "KhmerOSSiemReap" }}
                 >
-                    {description}
+                <div
+                    dangerouslySetInnerHTML={{ __html: isExpanded
+                        ? description
+                        : description.slice(0, maxLength) + '...',
+                        
+                    }}
+                />
                 </Paragraph>
                 {description.length > maxLength && (
                     <Button type="link" onClick={toggleExpand} style={{marginLeft:"auto",  fontFamily: 'KhmerOSSiemReap',}}>

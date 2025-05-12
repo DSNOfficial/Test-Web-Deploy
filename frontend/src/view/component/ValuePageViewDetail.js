@@ -142,3 +142,8 @@ const ValuePageViewDetail = () => {
 };
 
 export default ValuePageViewDetail;
+
+
+
+
+
